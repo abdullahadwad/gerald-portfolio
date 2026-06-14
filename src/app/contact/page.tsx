@@ -41,7 +41,7 @@ function ContactRow({
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="flex justify-between items-center py-4 transition-colors duration-200 group"
+      className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-4 transition-colors duration-200 group"
       style={{
         borderBottom: `1px solid ${colors.border}`,
         textDecoration: "none",
@@ -52,25 +52,24 @@ function ContactRow({
         style={{
           color: colors.text.tertiary,
           letterSpacing: typography.tracking.widest,
-          minWidth: "160px",
         }}
       >
         {label}
       </span>
       <span
-        className="text-[11px] transition-colors duration-200"
+        className="text-[11px] transition-colors duration-200 flex items-center gap-2"
         style={{
           color: colors.text.secondary,
           letterSpacing: typography.tracking.wide,
         }}
       >
         {value}
-      </span>
-      <span
-        className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-        style={{ color: colors.text.tertiary }}
-      >
-        →
+        <span
+          className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          style={{ color: colors.text.tertiary }}
+        >
+          →
+        </span>
       </span>
     </Link>
   );
@@ -104,7 +103,7 @@ export default function ContactPage() {
       >
         {/* ── Page header ── */}
         <div
-          className="flex items-end justify-between px-12 py-10"
+          className="flex items-end justify-between px-6 md:px-12 py-10"
           style={{ borderBottom: `1px solid ${colors.border}` }}
         >
           <span
@@ -127,15 +126,12 @@ export default function ContactPage() {
           </span>
         </div>
 
-        {/* ── Two column grid ── */}
-        <div
-          className="grid px-12 py-16"
-          style={{ gridTemplateColumns: "1fr 1fr", gap: "0" }}
-        >
+        {/* ── Columns ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 px-6 md:px-12 py-10 md:py-16 gap-0">
           {/* Left — Enquiries */}
           <div
-            className="pr-16"
-            style={{ borderRight: `1px solid ${colors.border}` }}
+            className="pb-12 md:pb-0 md:pr-16 md:border-r"
+            style={{ borderColor: colors.border }}
           >
             <SectionLabel>Representation &amp; Enquiries</SectionLabel>
 
@@ -164,7 +160,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right — Links */}
-          <div className="pl-16">
+          <div className="pt-12 md:pt-0 md:pl-16">
             <SectionLabel>Links</SectionLabel>
 
             <div className="flex flex-col mt-8">
@@ -180,7 +176,7 @@ export default function ContactPage() {
 
             {/* Location block */}
             <div
-              className="mt-16 pt-8"
+              className="mt-12 md:mt-16 pt-8"
               style={{ borderTop: `1px solid ${colors.border}` }}
             >
               <p

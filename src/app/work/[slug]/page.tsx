@@ -5,10 +5,6 @@ import Image from "next/image";
 import { colors, typography } from "@/assets/util";
 import { projects, statusColor, Project } from "@/assets/data";
 
-
-
-
-
 // ---------- sub-components ----------
 
 function MetaCell({
@@ -22,11 +18,11 @@ function MetaCell({
 }) {
   return (
     <div
-      className="px-6 py-3"
+      className="px-4 md:px-6 py-3"
       style={{ borderRight: last ? "none" : `1px solid ${colors.border}` }}
     >
       <p
-        className="text-[9px] uppercase mb-1"
+        className="text-[9px] uppercase mb-1 whitespace-nowrap"
         style={{
           color: colors.text.tertiary,
           letterSpacing: typography.tracking.widest,
@@ -35,7 +31,7 @@ function MetaCell({
         {label}
       </p>
       <p
-        className="text-[12px]"
+        className="text-[12px] whitespace-nowrap"
         style={{
           color: colors.text.primary,
           letterSpacing: typography.tracking.normal,
@@ -119,7 +115,7 @@ export default async function ProjectPage({
             fontFamily: typography.fonts.primary,
           }}
         >
-          <div className="text-center">
+          <div className="text-center px-6">
             <p
               className="text-[10px] uppercase mb-4"
               style={{
@@ -158,13 +154,13 @@ export default async function ProjectPage({
       >
         {/* ── Header ── */}
         <div
-          className="px-12 pb-12 pt-12"
+          className="px-6 md:px-12 pb-8 md:pb-12 pt-8 md:pt-12"
           style={{ borderBottom: `1px solid ${colors.border}` }}
         >
           {/* Back link */}
           <Link
             href="/work"
-            className="inline-block text-[10px] uppercase mb-10 transition-colors duration-200"
+            className="inline-block text-[10px] uppercase mb-6 md:mb-10 transition-colors duration-200"
             style={{
               color: colors.text.tertiary,
               letterSpacing: typography.tracking.widest,
@@ -176,7 +172,7 @@ export default async function ProjectPage({
 
           {/* Title */}
           <h1
-            className="font-light tracking-[-0.02em] mb-8"
+            className="font-light tracking-[-0.02em] mb-6 md:mb-8"
             style={{
               fontSize: "clamp(28px, 3vw, 42px)",
               color: colors.text.primary,
@@ -187,120 +183,133 @@ export default async function ProjectPage({
           </h1>
 
           {/* Meta strip */}
-          <div
-            className="inline-grid"
-            style={{
-              gridTemplateColumns: "repeat(4, auto)",
-              border: `1px solid ${colors.border}`,
-            }}
-          >
-            <MetaCell label="Year" value={String(project.year)} />
-            <MetaCell label="Format" value={project.format} />
-            <MetaCell label="Duration" value={project.duration} />
-            <MetaCell label="Status" value={project.status} last />
+          <div className="-mx-6 md:mx-0 overflow-x-auto">
+            <div
+              className="inline-grid px-6 md:px-0"
+              style={{
+                gridTemplateColumns: "repeat(4, auto)",
+                border: `1px solid ${colors.border}`,
+              }}
+            >
+              <MetaCell label="Year" value={String(project.year)} />
+              <MetaCell label="Format" value={project.format} />
+              <MetaCell label="Duration" value={project.duration} />
+              <MetaCell label="Status" value={project.status} last />
+            </div>
           </div>
         </div>
 
         {/* ── Body ── */}
-        <div className="grid" style={{ gridTemplateColumns: "1fr 320px" }}>
-          {/* Main */}
+        <div
+          className="grid grid-cols-1"
+          style={{ gridTemplateColumns: undefined }}
+        >
+          <div className="md:hidden contents">{/* placeholder to keep structure clear on mobile */}</div>
           <div
-            className="px-12 py-12"
-            style={{ borderRight: `1px solid ${colors.border}` }}
+            className="grid grid-cols-1 md:grid-cols-[1fr_320px]"
           >
-            {/* Logline */}
-            <p
-              className="font-light mb-12 max-w-xl"
-              style={{
-                fontSize: "16px",
-                color: colors.text.primary,
-                lineHeight: typography.leading.relaxed,
-                borderLeft: `1px solid ${colors.border}`,
-                paddingLeft: "24px",
-              }}
+            {/* Main */}
+            <div
+              className="px-6 md:px-12 py-8 md:py-12 md:border-r"
+              style={{ borderColor: colors.border, borderRightWidth: undefined }}
             >
-              {project.logline}
-            </p>
-
-            {/* Stills */}
-            <p
-              className="text-[9px] uppercase mb-4"
-              style={{
-                color: colors.text.tertiary,
-                letterSpacing: typography.tracking.widest,
-              }}
-            >
-              Stills
-            </p>
-
-            {project.stills.length > 0 ? (
-              <div
-                className="grid grid-cols-2"
-                style={{ gap: "1px", backgroundColor: colors.border }}
+              {/* Logline */}
+              <p
+                className="font-light mb-10 md:mb-12 max-w-xl"
+                style={{
+                  fontSize: "16px",
+                  color: colors.text.primary,
+                  lineHeight: typography.leading.relaxed,
+                  borderLeft: `1px solid ${colors.border}`,
+                  paddingLeft: "24px",
+                }}
               >
-                {project.stills.map((src, i) => (
-                  <div
-                    key={i}
-                    className="relative overflow-hidden"
-                    style={{
-                      aspectRatio: "16/10",
-                      backgroundColor: colors.background.alt,
-                    }}
-                  >
-                    <Image
-                      src={src}
-                      alt={`${project.title} — still ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div
-                className="grid grid-cols-2"
-                style={{ gap: "1px", backgroundColor: colors.border }}
+                {project.logline}
+              </p>
+
+              {/* Stills */}
+              <p
+                className="text-[9px] uppercase mb-4"
+                style={{
+                  color: colors.text.tertiary,
+                  letterSpacing: typography.tracking.widest,
+                }}
               >
-                {[1, 2, 3, 4].map((n) => (
-                  <StillPlaceholder key={n} index={n} />
-                ))}
-              </div>
-            )}
-          </div>
+                Stills
+              </p>
 
-          {/* Sidebar */}
-          <div className="px-8 py-12 flex flex-col gap-10">
-            {/* Credits */}
-            <div>
-              <SidebarLabel>Credits</SidebarLabel>
-              {project.credits.map((c) => (
-                <CreditRow key={c.role} role={c.role} name={c.name} />
-              ))}
-            </div>
-
-            {/* Production */}
-            <div>
-              <SidebarLabel>Production</SidebarLabel>
-              <CreditRow role="Company" name={project.production.company} />
-              <CreditRow role="Country" name={project.production.country} />
-              <CreditRow role="Language" name={project.production.language} />
-            </div>
-
-            {/* Festivals */}
-            <div>
-              <SidebarLabel>Festivals</SidebarLabel>
-              {project.festivals.length > 0 ? (
-                project.festivals.map((f) => (
-                  <CreditRow key={f} role={f} name="" />
-                ))
-              ) : (
-                <p
-                  className="text-[11px] pt-3"
-                  style={{ color: colors.text.tertiary }}
+              {project.stills.length > 0 ? (
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-2"
+                  style={{ gap: "1px", backgroundColor: colors.border }}
                 >
-                  Submissions forthcoming
-                </p>
+                  {project.stills.map((src, i) => (
+                    <div
+                      key={i}
+                      className="relative overflow-hidden"
+                      style={{
+                        aspectRatio: "16/10",
+                        backgroundColor: colors.background.alt,
+                      }}
+                    >
+                      <Image
+                        src={src}
+                        alt={`${project.title} — still ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-2"
+                  style={{ gap: "1px", backgroundColor: colors.border }}
+                >
+                  {[1, 2, 3, 4].map((n) => (
+                    <StillPlaceholder key={n} index={n} />
+                  ))}
+                </div>
               )}
+            </div>
+
+            {/* Sidebar */}
+            <div
+              className="px-6 md:px-8 py-8 md:py-12 flex flex-col gap-10 border-t md:border-t-0"
+              style={{ borderColor: colors.border }}
+            >
+              {/* Credits */}
+              <div>
+                <SidebarLabel>Credits</SidebarLabel>
+                {project.credits.map((c) => (
+                  <CreditRow key={c.role} role={c.role} name={c.name} />
+                ))}
+              </div>
+
+              {/* Production */}
+              <div>
+                <SidebarLabel>Production</SidebarLabel>
+                <CreditRow role="Company" name={project.production.company} />
+                <CreditRow role="Country" name={project.production.country} />
+                <CreditRow role="Language" name={project.production.language} />
+              </div>
+
+              {/* Festivals */}
+              <div>
+                <SidebarLabel>Festivals</SidebarLabel>
+                {project.festivals.length > 0 ? (
+                  project.festivals.map((f) => (
+                    <CreditRow key={f} role={f} name="" />
+                  ))
+                ) : (
+                  <p
+                    className="text-[11px] pt-3"
+                    style={{ color: colors.text.tertiary }}
+                  >
+                    Submissions forthcoming
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>

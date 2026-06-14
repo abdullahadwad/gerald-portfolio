@@ -5,6 +5,7 @@ import Link from "next/link";
 import { colors, typography } from "@/assets/util";
 import person1 from "@/assets/images/person1.jpg";
 import person2 from "@/assets/images/person2.jpg";
+
 const selectedWork = [
   { title: "Nocturne", year: "2024 — In Development", slug: "nocturne" },
   { title: "The Waiting Room", year: "2023", slug: "the-waiting-room" },
@@ -23,18 +24,15 @@ export default function AboutPage() {
         }}
       >
         {/* ── Grid ── */}
-        <div
-          className="grid min-h-screen"
-          style={{ gridTemplateColumns: "1fr 1fr" }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
           {/* ── Left ── */}
           <div
-            className="flex flex-col px-12 pb-20"
-            style={{ borderRight: `1px solid ${colors.border}` }}
+            className="flex flex-col px-6 md:px-12 pb-12 md:pb-20 md:border-r"
+            style={{ borderColor: colors.border }}
           >
             {/* Section label */}
             <div
-              className="py-10"
+              className="py-8 md:py-10"
               style={{ borderBottom: `1px solid ${colors.border}` }}
             >
               <span
@@ -49,7 +47,7 @@ export default function AboutPage() {
             </div>
 
             {/* Bio */}
-            <div className="flex flex-col gap-6 mt-10 max-w-md">
+            <div className="flex flex-col gap-6 mt-8 md:mt-10 max-w-md">
               <p
                 className="font-light"
                 style={{
@@ -89,12 +87,12 @@ export default function AboutPage() {
 
             {/* Divider */}
             <div
-              className="mt-14 mb-0"
+              className="mt-12 md:mt-14 mb-0"
               style={{ borderTop: `1px solid ${colors.border}` }}
             />
 
             {/* Selected Work */}
-            <div className="mt-10">
+            <div className="mt-8 md:mt-10">
               <p
                 className="text-[9px] uppercase pb-3"
                 style={{
@@ -110,7 +108,7 @@ export default function AboutPage() {
                 <Link
                   key={item.slug}
                   href={`/work/${item.slug}`}
-                  className="flex justify-between py-3 transition-colors duration-200 group"
+                  className="flex justify-between gap-4 py-3 transition-colors duration-200 group"
                   style={{
                     borderBottom: `1px solid ${colors.border}`,
                     textDecoration: "none",
@@ -123,7 +121,7 @@ export default function AboutPage() {
                     {item.title}
                   </span>
                   <span
-                    className="text-[11px] tabular-nums"
+                    className="text-[11px] tabular-nums whitespace-nowrap"
                     style={{ color: colors.text.tertiary }}
                   >
                     {item.year}
@@ -133,7 +131,7 @@ export default function AboutPage() {
             </div>
 
             {/* Still Room link */}
-            <div className="mt-auto pt-16">
+            <div className="mt-12 md:mt-auto pt-8 md:pt-16">
               <Link
                 href="https://stillroomproductions.com"
                 target="_blank"
@@ -151,10 +149,10 @@ export default function AboutPage() {
           </div>
 
           {/* ── Right ── */}
-          <div className="flex flex-col px-12 pb-20">
-            {/* Spacer to align with left section label */}
+          <div className="flex flex-col px-6 md:px-12 pb-12 md:pb-20">
+            {/* Spacer to align with left section label — desktop only */}
             <div
-              className="py-10"
+              className="hidden md:block py-10"
               style={{ borderBottom: `1px solid ${colors.border}`, opacity: 0 }}
             >
               <span className="text-[9px]">—</span>
@@ -162,7 +160,7 @@ export default function AboutPage() {
 
             {/* Portrait */}
             <div
-              className="relative w-full mt-10 overflow-hidden flex items-end p-4"
+              className="relative w-full mt-8 md:mt-10 overflow-hidden flex items-end p-4"
               style={{
                 aspectRatio: "3/4",
                 backgroundColor: colors.background.alt,

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { colors, typography } from "@/assets/util";
 import person1 from "@/assets/images/hero.jpg";
+
 const meta = [
   { label: "Based", value: "London, UK" },
   { label: "Active", value: "2014 — Present" },
@@ -11,17 +12,17 @@ const meta = [
 export default function HeroSection() {
   return (
     <section
-      className="min-h-screen grid grid-cols-2"
+      className="min-h-screen grid grid-cols-1 md:grid-cols-2"
       style={{ fontFamily: typography.fonts.primary }}
     >
       {/* Left */}
       <div
-        className="flex flex-col justify-center px-12 pb-16"
-        style={{ borderRight: `1px solid ${colors.border}` }}
+        className="flex flex-col justify-center px-6 md:px-12 pt-28 md:pt-0 pb-12 md:pb-16 order-2 md:order-1"
+        style={{ borderRight: undefined }}
       >
         {/* Eyebrow */}
         <p
-          className="text-[10px] uppercase mb-7"
+          className="text-[10px] uppercase mb-5 md:mb-7"
           style={{
             color: colors.text.tertiary,
             letterSpacing: typography.tracking.widest,
@@ -32,7 +33,7 @@ export default function HeroSection() {
 
         {/* Name */}
         <h1
-          className="text-[clamp(36px,4vw,56px)] font-light leading-[1.05] tracking-[-0.02em] mb-4"
+          className="text-[clamp(32px,8vw,56px)] font-light leading-[1.05] tracking-[-0.02em] mb-4"
           style={{ color: colors.text.primary }}
         >
           Gerald
@@ -42,7 +43,7 @@ export default function HeroSection() {
 
         {/* Role */}
         <p
-          className="text-[12px] uppercase mb-14"
+          className="text-[12px] uppercase mb-10 md:mb-14"
           style={{
             color: colors.text.secondary,
             letterSpacing: typography.tracking.wide,
@@ -95,7 +96,10 @@ export default function HeroSection() {
       </div>
 
       {/* Right — Image */}
-      <div className="flex flex-col justify-end px-12 pb-16 pt-32">
+      <div
+        className="flex flex-col justify-end px-6 md:px-12 pb-6 md:pb-16 pt-20 md:pt-32 order-1 md:order-2"
+        style={{ borderLeft: undefined }}
+      >
         <div
           className="relative w-full mb-3 overflow-hidden"
           style={{
@@ -104,7 +108,6 @@ export default function HeroSection() {
             border: `1px solid ${colors.border}`,
           }}
         >
-          {/* Replace src with actual image */}
           <Image
             src={person1}
             alt="An empty institutional corridor"
