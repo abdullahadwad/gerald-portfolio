@@ -3,91 +3,11 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { colors, typography } from "@/assets/util";
+import { projects, statusColor, Project } from "@/assets/data";
 
-type ProjectStatus = "Complete" | "In Development" | "Post-Production";
 
-interface Credit {
-  role: string;
-  name: string;
-}
 
-interface Project {
-  slug: string;
-  title: string;
-  year: number;
-  format: string;
-  duration: string;
-  status: ProjectStatus;
-  logline: string;
-  stills: string[];
-  credits: Credit[];
-  production: {
-    company: string;
-    country: string;
-    language: string;
-  };
-  festivals: string[];
-}
 
-const projects: Project[] = [
-  {
-    slug: "the-waiting-room",
-    title: "The Waiting Room",
-    year: 2023,
-    format: "Short Film",
-    duration: "18 min",
-    status: "Complete",
-    logline:
-      "A hospital waiting room at 4am. Three strangers sit with what they cannot say. Time passes. Nothing is resolved.",
-    stills: [
-      "/images/stills/waiting-room-01.jpg",
-      "/images/stills/waiting-room-02.jpg",
-      "/images/stills/waiting-room-03.jpg",
-      "/images/stills/waiting-room-04.jpg",
-    ],
-    credits: [
-      { role: "Director", name: "Gerald Gyimah" },
-      { role: "Writer", name: "Gerald Gyimah" },
-      { role: "Producer", name: "—" },
-      { role: "Cinematographer", name: "—" },
-      { role: "Editor", name: "—" },
-      { role: "Sound", name: "—" },
-    ],
-    production: {
-      company: "Still Room Productions",
-      country: "United Kingdom",
-      language: "English",
-    },
-    festivals: [],
-  },
-  {
-    slug: "nocturne",
-    title: "Nocturne",
-    year: 2024,
-    format: "Feature Film",
-    duration: "TBC",
-    status: "In Development",
-    logline:
-      "A film about the hours between. What lingers in spaces after people have left.",
-    stills: [],
-    credits: [
-      { role: "Director", name: "Gerald Gyimah" },
-      { role: "Writer", name: "Gerald Gyimah" },
-    ],
-    production: {
-      company: "Still Room Productions",
-      country: "United Kingdom",
-      language: "English",
-    },
-    festivals: [],
-  },
-];
-
-const statusColor: Record<ProjectStatus, string> = {
-  Complete: colors.accent.mid,
-  "In Development": colors.text.tertiary,
-  "Post-Production": colors.text.secondary,
-};
 
 // ---------- sub-components ----------
 

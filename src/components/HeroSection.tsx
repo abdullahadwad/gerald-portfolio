@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { colors, typography } from "@/assets/util";
-import person1 from "@/assets/images/person1.jpg";
+import person1 from "@/assets/images/hero.jpg";
 const meta = [
   { label: "Based", value: "London, UK" },
   { label: "Active", value: "2014 — Present" },
@@ -16,7 +16,7 @@ export default function HeroSection() {
     >
       {/* Left */}
       <div
-        className="flex flex-col justify-end px-12 pb-16 pt-32"
+        className="flex flex-col justify-center px-12 pb-16"
         style={{ borderRight: `1px solid ${colors.border}` }}
       >
         {/* Eyebrow */}
@@ -88,7 +88,7 @@ export default function HeroSection() {
               className="underline underline-offset-4 transition-opacity duration-200 hover:opacity-60"
               style={{ color: colors.text.secondary }}
             >
-              See index →
+              See work →
             </Link>
           </div>
         </div>

@@ -2,74 +2,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { colors, typography } from "@/assets/util";
 import Link from "next/link";
+import { projects, statusColor, Project } from "@/assets/data";
 
-type ProjectStatus = "Complete" | "In Development" | "Post-Production";
-
-interface Project {
-  slug: string;
-  year: number;
-  title: string;
-  format: string;
-  status: ProjectStatus;
-}
-
-const projects: Project[] = [
-  {
-    slug: "nocturne",
-    year: 2024,
-    title: "Nocturne",
-    format: "Feature Film",
-    status: "In Development",
-  },
-  {
-    slug: "the-waiting-room",
-    year: 2023,
-    title: "The Waiting Room",
-    format: "Short Film",
-    status: "Complete",
-  },
-  {
-    slug: "corridor",
-    year: 2022,
-    title: "Corridor",
-    format: "Short Film",
-    status: "Complete",
-  },
-  {
-    slug: "after-hours",
-    year: 2021,
-    title: "After Hours",
-    format: "Documentary",
-    status: "Complete",
-  },
-  {
-    slug: "still",
-    year: 2019,
-    title: "Still",
-    format: "Short Film",
-    status: "Complete",
-  },
-  {
-    slug: "the-empty-house",
-    year: 2017,
-    title: "The Empty House",
-    format: "Short Film",
-    status: "Complete",
-  },
-];
-
-const statusColor: Record<ProjectStatus, string> = {
-  Complete: colors.accent.mid,
-  "In Development": colors.text.tertiary,
-  "Post-Production": colors.text.secondary,
-};
 
 export default function WorkPage() {
   return (
     <>
       <Navbar />
       <main
-        className="h-full pt-16"
+        className="min-h-screen pt-16"
         style={{
           fontFamily: typography.fonts.primary,
           backgroundColor: colors.background.main,

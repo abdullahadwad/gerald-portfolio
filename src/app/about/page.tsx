@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { colors, typography } from "@/assets/util";
-
+import person1 from "@/assets/images/person1.jpg";
+import person2 from "@/assets/images/person2.jpg";
 const selectedWork = [
   { title: "Nocturne", year: "2024 — In Development", slug: "nocturne" },
   { title: "The Waiting Room", year: "2023", slug: "the-waiting-room" },
@@ -169,7 +170,7 @@ export default function AboutPage() {
               }}
             >
               <Image
-                src="/images/portrait.jpg"
+                src={person1}
                 alt="Gerald Gyimah — portrait"
                 fill
                 className="object-cover"
@@ -197,7 +198,7 @@ export default function AboutPage() {
               }}
             >
               <Image
-                src="/images/directing.jpg"
+                src={person2}
                 alt="Gerald Gyimah — on set"
                 fill
                 className="object-cover"
