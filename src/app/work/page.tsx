@@ -71,7 +71,7 @@ export default function WorkPage() {
                 href={`/work/${project.slug}`}
                 className="group flex flex-col gap-2 px-6 py-5 md:grid md:gap-6 md:py-5 md:px-12 transition-colors duration-200 hover:bg-opacity-100"
                 style={{
-                  // @ts-expect-error -- gridTemplateColumns only applies at md, harmless on mobile flex
+                  
                   gridTemplateColumns: "80px 1fr 140px 140px 40px",
                   alignItems: "center",
                   borderBottom: `1px solid ${colors.border}`,
