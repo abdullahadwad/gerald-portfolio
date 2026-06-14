@@ -1,7 +1,7 @@
 import { colors } from "@/assets/util";
-import image1 from "@images/image1.jpg"
-import image2 from "@images/image2.jpg"
-import image3 from "@images/image3.jpg"
+import image1 from "@/assets/images/image1.jpg";
+import image2 from "@/assets/images/image2.jpg";
+import image3 from "@/assets/images/image3.jpg";
 import { StaticImageData } from "next/image";
 export type ProjectStatus = "Complete" | "In Development" | "Post-Production";
 
