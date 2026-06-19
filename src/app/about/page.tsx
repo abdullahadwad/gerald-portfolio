@@ -3,8 +3,8 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { colors, typography } from "@/assets/util";
-import person1 from "@/assets/images/person1.jpg";
-import person2 from "@/assets/images/person2.jpg";
+// import person1 from "@/assets/images/person1.jpg";
+// import person2 from "@/assets/images/person2.jpg";
 
 const selectedWork = [
   { title: "Nocturne", year: "2024 — In Development", slug: "nocturne" },
@@ -167,13 +167,13 @@ export default function AboutPage() {
                 border: `1px solid ${colors.border}`,
               }}
             >
-              <Image
+              {/* <Image
                 src={person1}
                 alt="Gerald Gyimah — portrait"
                 fill
                 className="object-cover"
                 priority
-              />
+              /> */}
               <span
                 className="relative z-10 text-[10px] uppercase"
                 style={{
@@ -195,12 +195,12 @@ export default function AboutPage() {
                 borderTop: "none",
               }}
             >
-              <Image
+              {/* <Image
                 src={person2}
                 alt="Gerald Gyimah — on set"
                 fill
                 className="object-cover"
-              />
+              /> */}
               <span
                 className="relative z-10 text-[10px] uppercase"
                 style={{
