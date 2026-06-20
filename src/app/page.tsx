@@ -142,7 +142,7 @@ export default function Home() {
         textDecoration: "none",
       }}
     >
-      Full index →
+      View Projects List →
     </Link>
   </div>
 
