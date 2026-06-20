@@ -31,8 +31,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "the-waiting-room",
-    title: "The Waiting Room",
+    slug: "on-record",
+    title: "On Record",
     year: 2023,
     format: "Short Film",
     duration: "18 min",
@@ -55,49 +55,7 @@ export const projects: Project[] = [
     },
     festivals: [],
   },
-  {
-    slug: "nocturne",
-    title: "Nocturne",
-    year: 2024,
-    format: "Feature Film",
-    duration: "TBC",
-    status: "In Development",
-    logline:
-      "A film about the hours between. What lingers in spaces after people have left.",
-    stills: [image2,image1,image3,image1],
-    credits: [
-      { role: "Director", name: "Gerald Gyimah" },
-      { role: "Writer", name: "Gerald Gyimah" },
-    ],
-    production: {
-      company: "Still Room Productions",
-      country: "United Kingdom",
-      language: "English",
-    },
-    festivals: [],
-  },
-    {
-    slug: "IMDB",
-    title: "IMDB",
-    year: 2024,
-    format: "Feature Film",
-    duration: "TBC",
-    status: "In Development",
-    logline:
-      "A film about the hours between. What lingers in spaces after people have left.",
-    stills: [image3,image4,image3,image1],
-    credits: [
-      { role: "Director", name: "Gerald Gyimah" },
-      { role: "Writer", name: "Gerald Gyimah" },
-    ],
-    production: {
-      company: "Still Room Productions",
-      country: "United Kingdom",
-      language: "English",
-    },
-    festivals: [],
-  },
-    {
+      {
     slug: "protocol",
     title: "Protocol",
     year: 2024,
@@ -118,6 +76,50 @@ export const projects: Project[] = [
     },
     festivals: [],
   },
+  {
+    slug: "consultation",
+    title: "The Consultation",
+    year: 2024,
+    format: "Feature Film",
+    duration: "TBC",
+    status: "In Development",
+    logline:
+      "A film about the hours between. What lingers in spaces after people have left.",
+    stills: [image2,image1,image3,image1],
+    credits: [
+      { role: "Director", name: "Gerald Gyimah" },
+      { role: "Writer", name: "Gerald Gyimah" },
+    ],
+    production: {
+      company: "Still Room Productions",
+      country: "United Kingdom",
+      language: "English",
+    },
+    festivals: [],
+  },
+    {
+    slug: "assessment",
+    title: "Assessment",
+    year: 2024,
+    format: "Feature Film",
+    duration: "TBC",
+    status: "In Development",
+    logline:
+      "A film about the hours between. What lingers in spaces after people have left.",
+    stills: [image3,image4,image3,image1],
+    credits: [
+      { role: "Director", name: "Gerald Gyimah" },
+      { role: "Writer", name: "Gerald Gyimah" },
+    ],
+    production: {
+      company: "Still Room Productions",
+      country: "United Kingdom",
+      language: "English",
+    },
+    festivals: [],
+  },
+
+  
 ];
 
 export const statusColor: Record<ProjectStatus, string> = {

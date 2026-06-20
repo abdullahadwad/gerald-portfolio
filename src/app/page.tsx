@@ -9,9 +9,9 @@ import { projects } from "@/assets/data";
 // Swap these with your final assets — paths/names are placeholders.
 import heroStill from "@/assets/images/background4.png";
 import headshot from "@/assets/images/headshot.jpg";
-import directingBTS from "@/assets/images/background3.png";
-import atmosphericStop from "@/assets/images/background2.png";
-import atmosphericIncidents from "@/assets/images/stopdoor.jpg";
+import directingBTS from "@/assets/images/back3.jpeg";
+import atmosphericStop from "@/assets/images/back1.jpeg";
+import atmosphericIncidents from "@/assets/images/back2.jpeg";
 
 // ── Section divider ─────────────────────────────────────
 function Divider() {
@@ -24,7 +24,7 @@ function Divider() {
 }
 
 // ── Section eyebrow label ───────────────────────────────
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return (
     <p
       className="text-[9px] uppercase"
@@ -32,6 +32,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
         color: colors.text.tertiary,
         letterSpacing: typography.tracking.widest,
         fontFamily: typography.fonts.primary,
+        ...style
       }}
     >
       {children}
@@ -87,138 +88,119 @@ export default function Home() {
         {/* ══ 1. HERO ══════════════════════════════════════════
             Restrained, typographic. No dominant portrait —
             a small still sits low-opacity in the background. */}
-        <section
-          id="home"
-          className="relative flex flex-col justify-center px-6 md:px-12 py-28 md:py-40 min-h-[70vh] overflow-hidden"
-        >
-          {/* Subtle background still */}
-          <div
-            className="absolute inset-0"
-            aria-hidden="true"
-            style={{ opacity: 0.08 }}
-          >
-            <Image
-              src={heroStill}
-              alt=""
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+<section
+  id="home"
+  className="relative flex flex-col justify-center items-center px-6 md:px-12 py-28 md:py-40 min-h-[70vh] overflow-hidden text-center"
+>
+  <div className="relative z-10 w-full flex flex-col items-center">
+    <h1
+  className="font-light leading-[1.03] tracking-[-0.025em] mt-6 mb-5 whitespace-nowrap"
+  style={{
+    fontSize: "clamp(48px, 10vw, 88px)",
+    color: colors.text.primary,
+  }}
+>
+  Gerald Gyimah
+</h1>
 
-          <div className="relative z-10">
-            {/* <SectionLabel>Index — Gerald Gyimah</SectionLabel> */}
+    <p
+      className="text-[12px] uppercase mb-8"
+      style={{
+        color: colors.text.secondary,
+        letterSpacing: typography.tracking.widest,
+      }}
+    >
+      Writer &nbsp;/&nbsp; Director
+    </p>
 
-            <h1
-              className="font-light leading-[1.03] tracking-[-0.025em] mt-6 mb-5"
-              style={{
-                fontSize: "clamp(48px, 10vw, 88px)",
-                color: colors.text.primary,
-              }}
-            >
-              Gerald
-              <br />
-              Gyimah
-            </h1>
-
-            <p
-              className="text-[12px] uppercase mb-8"
-              style={{
-                color: colors.text.secondary,
-                letterSpacing: typography.tracking.widest,
-              }}
-            >
-              Writer &nbsp;/&nbsp; Director
-            </p>
-
-            <p
-              className="font-light max-w-xs"
-              style={{
-                fontSize: "13px",
-                color: colors.text.tertiary,
-                lineHeight: typography.leading.relaxed,
-              }}
-            >
-              Work concerned with stillness, institutional space, and the weight
-              of what remains unspoken.
-            </p>
-          </div>
-        </section>
+    <p
+      className="font-light max-w-xs"
+      style={{
+        fontSize: "13px",
+        color: colors.text.tertiary,
+        lineHeight: typography.leading.relaxed,
+      }}
+    >
+      Work concerned with stillness, institutional space, and the weight
+      of what remains unspoken.
+    </p>
+  </div>
+</section>
 
         <Divider />
 
-        {/* ══ 2. FILMS ═════════════════════════════════════════ */}
-        <section id="work" className="px-6 md:px-12 py-14 md:py-20">
-          <div className="flex items-center justify-between mb-10 md:mb-12">
-            <SectionLabel>Films</SectionLabel>
-            <Link
-              href="/work"
-              className="text-[9px] uppercase transition-opacity duration-200 hover:opacity-50"
-              style={{
-                color: colors.text.tertiary,
-                letterSpacing: typography.tracking.widest,
-                textDecoration: "none",
-              }}
-            >
-              Full index →
-            </Link>
-          </div>
+{/* ══ 2. FILMS ═════════════════════════════════════════ */}
+<section id="work" className="py-14 md:py-20">
+  <div className="flex items-center justify-between mb-10 md:mb-12 px-6 md:px-12">
+    <SectionLabel>Films</SectionLabel>
+    <Link
+      href="/work"
+      className="text-[9px] uppercase transition-opacity duration-200 hover:opacity-50"
+      style={{
+        color: colors.text.tertiary,
+        letterSpacing: typography.tracking.widest,
+        textDecoration: "none",
+      }}
+    >
+      Full index →
+    </Link>
+  </div>
 
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-px"
-            style={{ backgroundColor: colors.border }}
+  <div
+    className="grid grid-cols-1 md:grid-cols-2 gap-px"
+    style={{ backgroundColor: colors.border }}
+  >
+    {projects.map((project) => (
+      <Link
+        key={project.slug}
+        href={`/work/${project.slug}`}
+        className="group block"
+        style={{
+          textDecoration: "none",
+          backgroundColor: colors.background.main,
+        }}
+      >
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ aspectRatio: "16/9" }}
+        >
+          <Image
+            src={project.stills[0]}
+            alt={`${project.title} — film still`}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          />
+        </div>
+
+        <div
+          className="flex items-center justify-between px-4 py-3"
+          style={{ borderTop: `1px solid ${colors.border}` }}
+        >
+          <span
+            className="text-[12px] font-light"
+            style={{ color: colors.text.primary }}
           >
-            {projects.map((project) => (
-              <Link
-                key={project.slug}
-                href={`/work/${project.slug}`}
-                className="group block"
-                style={{
-                  textDecoration: "none",
-                  backgroundColor: colors.background.main,
-                }}
-              >
-                <div
-                  className="relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/10" }}
-                >
-                  <Image
-                    src={project.stills[0]}
-                    alt={`${project.title} — film still`}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                  />
-                </div>
-
-                <div
-                  className="flex items-center justify-between px-4 py-3"
-                  style={{ borderTop: `1px solid ${colors.border}` }}
-                >
-                  <span
-                    className="text-[12px] font-light"
-                    style={{ color: colors.text.primary }}
-                  >
-                    {project.title}
-                  </span>
-                  <div className="flex items-center gap-4">
-                    <span
-                      className="text-[10px] tabular-nums"
-                      style={{ color: colors.text.tertiary }}
-                    >
-                      {project.year}
-                    </span>
-                    <span
-                      className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                      style={{ color: colors.text.tertiary }}
-                    >
-                      →
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+            {project.title}
+          </span>
+          <div className="flex items-center gap-4">
+            <span
+              className="text-[10px] tabular-nums"
+              style={{ color: colors.text.tertiary }}
+            >
+              {project.year}
+            </span>
+            <span
+              className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              style={{ color: colors.text.tertiary }}
+            >
+              →
+            </span>
           </div>
-        </section>
+        </div>
+      </Link>
+    ))}
+  </div>
+</section>
 
         <Divider />
 
@@ -240,9 +222,8 @@ export default function Home() {
                   lineHeight: typography.leading.loose,
                 }}
               >
-                Gerald Gyimah is a writer and director working in fiction film
-                and documentary. His work is concerned with stillness,
-                institutional space, and the weight of what remains unspoken.
+                Gerald Gyimah is a writer and director based in London. His work examines institutional spaces, procedural language, and the quiet pressures through which systems produce outcomes.
+
               </p>
 
               <p
@@ -253,18 +234,17 @@ export default function Home() {
                   lineHeight: typography.leading.loose,
                 }}
               >
-                He is the founder of Still Room Productions, through which he
-                develops and produces independent work. He is based in London.
+                He is the founder of Still Room Productions, through which he develops and produces independent work.
               </p>
             </div>
           </div>
 
-          <div className="relative" style={{ minHeight: "480px" }}>
+          <div className="relative bg-gray-300" style={{ minHeight: "300px" }}>
             <Image
               src={headshot}
               alt="Gerald Gyimah — headshot"
               fill
-              className="object-cover object-top"
+              className="object-cover object-top hidden"
             />
           </div>
         </section>
@@ -273,8 +253,8 @@ export default function Home() {
 
         {/* ══ 4. DIRECTING ═════════════════════════════════════
             Black-and-white BTS — director with crew around the monitor. */}
-        <section id="directing" className="px-6 md:px-12 py-14 md:py-20">
-          <SectionLabel>Directing</SectionLabel>
+        <section id="directing" className="px-0 md:px-12 py-14 md:py-20">
+          <SectionLabel style={{ paddingLeft: 12 }}>Directing</SectionLabel>
 
           <div
             className="relative w-full overflow-hidden mt-8"
@@ -288,15 +268,16 @@ export default function Home() {
             />
           </div>
 
-          <p
+          {/* <p
             className="text-[11px] uppercase mt-4"
             style={{
               color: colors.text.tertiary,
               letterSpacing: typography.tracking.widest,
+              paddingLeft: 12,
             }}
           >
             On set, undated
-          </p>
+          </p> */}
         </section>
 
         <Divider />
@@ -305,7 +286,7 @@ export default function Home() {
         <AtmosphericBand
           src={atmosphericIncidents}
           alt="STOP door"
-          caption="Stop, undated"
+          caption=""
         />
 
         <Divider />
@@ -314,14 +295,14 @@ export default function Home() {
         <AtmosphericBand
           src={atmosphericStop}
           alt="Incidents must be recorded sign"
-          caption="Incidents Must Be Recorded, undated"
+          caption=""
         />
 
         <Divider />
 
         {/* ══ 7. CONTACT ═══════════════════════════════════════ */}
-        <section id="contact" className="px-6 md:px-12 py-14 md:py-20">
-          <div className="flex items-start justify-between mb-12 md:mb-16">
+        <section id="contact" className="px-6 md:px-12 py-6 mt-6">
+          <div className="flex items-start justify-between">
             <SectionLabel>Contact</SectionLabel>
             <span
               className="text-[9px] uppercase"
