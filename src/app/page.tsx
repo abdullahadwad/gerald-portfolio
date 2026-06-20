@@ -319,8 +319,8 @@ export default function Home() {
             {[
               {
                 label: "Email",
-                href: "mailto:hello@geraldgyimah.com",
-                value: "hello@geraldgyimah.com",
+                href: "gerald@geraldgyimah.com",
+                value: "gerald@geraldgyimah.com",
               },
               {
                 label: "Instagram",
