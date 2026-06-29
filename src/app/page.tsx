@@ -12,7 +12,6 @@ import headshot from "@/assets/images/headshot.jpg";
 import directingBTS from "@/assets/images/back3.jpeg";
 import atmosphericStop from "@/assets/images/back1.jpeg";
 import atmosphericIncidents from "@/assets/images/back2.jpeg";
-import { urlFor } from "@/lib/sanity";
 import { getAllProjects } from "@/lib/queries";
 export const dynamic = 'force-dynamic'
 // ── Section divider ─────────────────────────────────────
@@ -174,7 +173,7 @@ export default async function Home() {
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           /> */}
-                  {console.log('stills debug:', JSON.stringify(project.stills))}
+                  
                   {project.stills?.[0]?.url ? (
                     <Image
                       src={project.stills[0].url}

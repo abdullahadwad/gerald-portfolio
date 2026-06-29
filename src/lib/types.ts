@@ -9,11 +9,7 @@ export interface Credit {
 // Stills are now Sanity image references, not StaticImageData
 export interface SanityImageRef {
   _key: string;
-  _type: string;
-  asset: {
-    _ref: string;
-    _type: string;
-  };
+  url: string;
   hotspot?: { x: number; y: number; height: number; width: number };
 }
 

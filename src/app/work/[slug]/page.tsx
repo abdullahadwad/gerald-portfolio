@@ -102,7 +102,7 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-    const projects = await getAllProjects();
+  const projects = await getAllProjects();
   const project = projects.find((p) => p.slug === slug);
   console.log(slug);
 
@@ -255,7 +255,7 @@ export default async function ProjectPage({
                       }}
                     >
                       <Image
-                        src={src}
+                        src={src.url}
                         alt={`${project.title} — still ${i + 1}`}
                         fill
                         className="object-cover"
