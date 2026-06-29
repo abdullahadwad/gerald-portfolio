@@ -78,7 +78,7 @@ function AtmosphericBand({
 // ═══════════════════════════════════════════════════════
 export default async function Home() {
   const projects = await getAllProjects();
-  console.log('url:', projects.stills?.[0]?.url)
+
   return (
     <>
       <Navbar />
