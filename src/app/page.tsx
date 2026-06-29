@@ -3,7 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { colors, typography } from "@/assets/util";
-import { projects } from "@/assets/data";
+// import { projects } from "@/assets/data";
 
 // ── Images ─────────────────────────────────────────────
 // Swap these with your final assets — paths/names are placeholders.
@@ -12,7 +12,9 @@ import headshot from "@/assets/images/headshot.jpg";
 import directingBTS from "@/assets/images/back3.jpeg";
 import atmosphericStop from "@/assets/images/back1.jpeg";
 import atmosphericIncidents from "@/assets/images/back2.jpeg";
-
+import { urlFor } from "@/lib/sanity";
+import { getAllProjects } from "@/lib/queries";
+export const dynamic = 'force-dynamic'
 // ── Section divider ─────────────────────────────────────
 function Divider() {
   return (
@@ -74,7 +76,9 @@ function AtmosphericBand({
 // ═══════════════════════════════════════════════════════
 // PAGE
 // ═══════════════════════════════════════════════════════
-export default function Home() {
+export default async function Home() {
+  const projects = await getAllProjects();
+  console.log('url:', projects.stills?.[0]?.url)
   return (
     <>
       <Navbar />
@@ -88,119 +92,143 @@ export default function Home() {
         {/* ══ 1. HERO ══════════════════════════════════════════
             Restrained, typographic. No dominant portrait —
             a small still sits low-opacity in the background. */}
-<section
-  id="home"
-  className="relative flex flex-col justify-center items-center px-6 md:px-12 py-28 md:py-40 min-h-[70vh] overflow-hidden text-center"
->
-  <div className="relative z-10 w-full flex flex-col items-center">
-    <h1
-  className="font-light leading-[1.03] tracking-[-0.025em] mt-6 mb-5 whitespace-nowrap"
-  style={{
-    fontSize: "clamp(48px, 10vw, 88px)",
-    color: colors.text.primary,
-  }}
->
-  Gerald Gyimah
-</h1>
+        <section
+          id="home"
+          className="relative flex flex-col justify-center items-center px-6 md:px-12 py-28 md:py-40 min-h-[70vh] overflow-hidden text-center"
+        >
+          <div className="relative z-10 w-full flex flex-col items-center">
+            <h1
+              className="font-light leading-[1.03] tracking-[-0.025em] mt-6 mb-5 whitespace-nowrap"
+              style={{
+                fontSize: "clamp(48px, 10vw, 88px)",
+                color: colors.text.primary,
+              }}
+            >
+              Gerald Gyimah
+            </h1>
 
-    <p
-      className="text-[12px] uppercase mb-8"
-      style={{
-        color: colors.text.secondary,
-        letterSpacing: typography.tracking.widest,
-      }}
-    >
-      Writer &nbsp;/&nbsp; Director
-    </p>
+            <p
+              className="text-[12px] uppercase mb-8"
+              style={{
+                color: colors.text.secondary,
+                letterSpacing: typography.tracking.widest,
+              }}
+            >
+              Writer &nbsp;/&nbsp; Director
+            </p>
 
-    <p
-      className="font-light max-w-xs"
-      style={{
-        fontSize: "13px",
-        color: colors.text.tertiary,
-        lineHeight: typography.leading.relaxed,
-      }}
-    >
-      Work concerned with stillness, institutional space, and the weight
-      of what remains unspoken.
-    </p>
-  </div>
-</section>
+            <p
+              className="font-light max-w-xs"
+              style={{
+                fontSize: "13px",
+                color: colors.text.tertiary,
+                lineHeight: typography.leading.relaxed,
+              }}
+            >
+              Work concerned with stillness, institutional space, and the weight
+              of what remains unspoken.
+            </p>
+          </div>
+        </section>
 
         <Divider />
 
-{/* ══ 2. FILMS ═════════════════════════════════════════ */}
-<section id="work" className="py-14 md:py-20">
-  <div className="flex items-center justify-between mb-10 md:mb-12 px-6 md:px-12">
-    <SectionLabel>Films</SectionLabel>
-    <Link
-      href="/work"
-      className="text-[9px] uppercase transition-opacity duration-200 hover:opacity-50"
-      style={{
-        color: colors.text.tertiary,
-        letterSpacing: typography.tracking.widest,
-        textDecoration: "none",
-      }}
-    >
-      View Projects List →
-    </Link>
-  </div>
+        {/* ══ 2. FILMS ═════════════════════════════════════════ */}
+        <section id="work" className="py-14 md:py-20">
+          <div className="flex items-center justify-between mb-10 md:mb-12 px-6 md:px-12">
+            <SectionLabel>Films</SectionLabel>
+            <Link
+              href="/work"
+              className="text-[9px] uppercase transition-opacity duration-200 hover:opacity-50"
+              style={{
+                color: colors.text.tertiary,
+                letterSpacing: typography.tracking.widest,
+                textDecoration: "none",
+              }}
+            >
+              View Projects List →
+            </Link>
+          </div>
 
-  <div
-    className="grid grid-cols-1 md:grid-cols-2 gap-px"
-    style={{ backgroundColor: colors.border }}
-  >
-    {projects.map((project) => (
-      <Link
-        key={project.slug}
-        href={`/work/${project.slug}`}
-        className="group block"
-        style={{
-          textDecoration: "none",
-          backgroundColor: colors.background.main,
-        }}
-      >
-        <div
-          className="relative w-full overflow-hidden"
-          style={{ aspectRatio: "16/9" }}
-        >
-          <Image
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-px"
+            style={{ backgroundColor: colors.border }}
+          >
+            {projects.map((project) => (
+              <Link
+                key={project.slug}
+                href={`/work/${project.slug}`}
+                className="group block"
+                style={{
+                  textDecoration: "none",
+                  backgroundColor: colors.background.main,
+                }}
+              >
+                <div
+                  className="relative w-full overflow-hidden"
+                  style={{ aspectRatio: "16/9" }}
+                >
+                  {/* <Image
             src={project.stills[0]}
             alt={`${project.title} — film still`}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-          />
-        </div>
+          /> */}
+                  {console.log('stills debug:', JSON.stringify(project.stills))}
+                  {project.stills?.[0]?.url ? (
+                    <Image
+                      src={project.stills[0].url}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#1a1a1a',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#666',
+                      fontSize: '0.75rem',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}>
+                      No project image
+                    </div>
+                  )}
+                </div>
 
-        <div
-          className="flex items-center justify-between px-4 py-3"
-          style={{ borderTop: `1px solid ${colors.border}` }}
-        >
-          <span
-            className="text-[12px] font-light"
-            style={{ color: colors.text.primary }}
-          >
-            {project.title}
-          </span>
-          <div className="flex items-center gap-4">
-            <span
-              className="text-[10px] tabular-nums"
-              style={{ color: colors.text.tertiary }}
-            >
-              {project.year}
-            </span>
-            <span
-              className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              style={{ color: colors.text.tertiary }}
-            >
-              →
-            </span>
+                <div
+                  className="flex items-center justify-between px-4 py-3"
+                  style={{ borderTop: `1px solid ${colors.border}` }}
+                >
+                  <span
+                    className="text-[12px] font-light"
+                    style={{ color: colors.text.primary }}
+                  >
+                    {project.title}
+                  </span>
+                  <div className="flex items-center gap-4">
+                    <span
+                      className="text-[10px] tabular-nums"
+                      style={{ color: colors.text.tertiary }}
+                    >
+                      {project.year}
+                    </span>
+                    <span
+                      className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      style={{ color: colors.text.tertiary }}
+                    >
+                      →
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-        </div>
-      </Link>
-    ))}
-  </div>
-</section>
+        </section>
 
         <Divider />
 

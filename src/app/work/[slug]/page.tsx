@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { colors, typography } from "@/assets/util";
-import { projects, statusColor, Project } from "@/assets/data";
+// import { projects, statusColor, Project } from "@/assets/data";
+import { getAllProjects } from "@/lib/queries";
 
 // ---------- sub-components ----------
 
@@ -101,6 +102,7 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+    const projects = await getAllProjects();
   const project = projects.find((p) => p.slug === slug);
   console.log(slug);
 
