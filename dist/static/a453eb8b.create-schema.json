@@ -1,0 +1,143 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "year",
+        "type": "number"
+      },
+      {
+        "options": {
+          "list": [
+            "Short Film",
+            "Feature Film",
+            "Documentary",
+            "Series"
+          ]
+        },
+        "name": "format",
+        "type": "string"
+      },
+      {
+        "name": "duration",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            "Complete",
+            "In Development",
+            "Post-Production"
+          ]
+        },
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "logline",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "stills",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "role",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "credits",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "name": "company",
+            "type": "string"
+          },
+          {
+            "name": "country",
+            "type": "string"
+          },
+          {
+            "name": "language",
+            "type": "string"
+          }
+        ],
+        "name": "production",
+        "type": "object"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "festivals",
+        "type": "array"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "project",
+    "type": "document"
+  }
+]
