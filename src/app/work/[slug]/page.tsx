@@ -216,18 +216,78 @@ export default async function ProjectPage({
               style={{ borderColor: colors.border, borderRightWidth: undefined }}
             >
               {/* Logline */}
-              <p
-                className="font-light mb-10 md:mb-12 max-w-xl"
-                style={{
-                  fontSize: "16px",
-                  color: colors.text.primary,
-                  lineHeight: typography.leading.relaxed,
-                  borderLeft: `1px solid ${colors.border}`,
-                  paddingLeft: "24px",
-                }}
-              >
-                {project.logline}
-              </p>
+              {project.logline && (
+                <p
+                  className="font-light mb-10 md:mb-12 max-w-xl"
+                  style={{
+                    fontSize: "16px",
+                    color: colors.text.primary,
+                    lineHeight: typography.leading.relaxed,
+                    borderLeft: `1px solid ${colors.border}`,
+                    paddingLeft: "24px",
+                  }}
+                >
+                  {project.logline}
+                </p>
+              )}
+
+              {/* Short paragraph */}
+              {/* @ts-ignore */}
+              {project.shortParagraph && (
+                <p
+                  className="font-light mb-10 md:mb-12 max-w-xl text-[14px]"
+                  style={{
+                    color: colors.text.secondary,
+                    lineHeight: typography.leading.loose,
+                  }}
+                >
+                  {/* @ts-ignore */}
+                  {project.shortParagraph}
+                </p>
+              )}
+
+              {/* Trailer */}
+              {/* @ts-ignore */}
+              {project.trailerUrl && (
+                <div className="mb-10 md:mb-12">
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ aspectRatio: "16/9", backgroundColor: colors.background.alt }}
+                  >
+                    <iframe
+                      /* @ts-ignore */
+                      src={project.trailerUrl}
+                      className="absolute top-0 left-0 w-full h-full border-0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
+              )}
+
+              {/* Festival laurels / Awards */}
+              {/* @ts-ignore */}
+              {project.awards && project.awards.length > 0 && (
+                <div className="mb-10 md:mb-12">
+                  <p
+                    className="text-[9px] uppercase mb-4"
+                    style={{
+                      color: colors.text.tertiary,
+                      letterSpacing: typography.tracking.widest,
+                    }}
+                  >
+                    Awards & Laurels
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    {/* @ts-ignore */}
+                    {project.awards.map((award: any, i: number) => (
+                      <div key={i} className="text-[12px]" style={{ color: colors.text.secondary }}>
+                        {award.title}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Stills */}
               <p
@@ -240,12 +300,12 @@ export default async function ProjectPage({
                 Stills
               </p>
 
-              {project.stills.length > 0 ? (
+              {project.stills && project.stills.length > 0 ? (
                 <div
                   className="grid grid-cols-1 sm:grid-cols-2"
                   style={{ gap: "1px", backgroundColor: colors.border }}
                 >
-                  {project.stills.map((src, i) => (
+                  {project.stills.map((src: any, i: number) => (
                     <div
                       key={i}
                       className="relative overflow-hidden"
@@ -273,6 +333,28 @@ export default async function ProjectPage({
                   ))}
                 </div>
               )}
+
+              {/* Press Kit PDF */}
+              {/* @ts-ignore */}
+              {project.pressKitUrl && (
+                <div className="mt-10 md:mt-12">
+                  <a
+                    /* @ts-ignore */
+                    href={project.pressKitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-[10px] uppercase transition-opacity duration-200 hover:opacity-60"
+                    style={{
+                      color: colors.text.primary,
+                      letterSpacing: typography.tracking.widest,
+                      borderBottom: `1px solid ${colors.border}`,
+                      paddingBottom: "4px",
+                    }}
+                  >
+                    Download Press Kit ↓
+                  </a>
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -297,21 +379,16 @@ export default async function ProjectPage({
               </div>
 
               {/* Festivals */}
-              <div>
-                <SidebarLabel>Festivals</SidebarLabel>
-                {project.festivals.length > 0 ? (
-                  project.festivals.map((f) => (
+              {/* @ts-ignore */}
+              {project.festivals && project.festivals.length > 0 && (
+                <div>
+                  <SidebarLabel>Festivals</SidebarLabel>
+                  {/* @ts-ignore */}
+                  {project.festivals.map((f: string) => (
                     <CreditRow key={f} role={f} name="" />
-                  ))
-                ) : (
-                  <p
-                    className="text-[11px] pt-3"
-                    style={{ color: colors.text.tertiary }}
-                  >
-                    Submissions forthcoming
-                  </p>
-                )}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -59,7 +59,7 @@ export const projects: Project[] = [
     slug: "protocol",
     title: "Protocol",
     year: 2024,
-    format: "Feature Film",
+    format: "Short Film",
     duration: "TBC",
     status: "In Development",
     logline:

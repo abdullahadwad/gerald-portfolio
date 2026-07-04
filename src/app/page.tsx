@@ -231,6 +231,26 @@ export default async function Home() {
 
         <Divider />
 
+        {/* ══ 4. DIRECTING ═════════════════════════════════════
+            Black-and-white BTS — director with crew around the monitor. */}
+        <section id="directing" className="px-0 md:px-12 py-14 md:py-20">
+          <SectionLabel style={{ paddingLeft: 12 }}>Directing</SectionLabel>
+
+          <div
+            className="relative w-full overflow-hidden mt-8"
+            style={{ aspectRatio: "16/9" }}
+          >
+            <Image
+              src={directingBTS}
+              alt="Gerald Gyimah on set with crew, reviewing the monitor"
+              fill
+              className="object-cover grayscale"
+            />
+          </div>
+        </section>
+
+        <Divider />
+
         {/* ══ 3. ABOUT ═════════════════════════════════════════
             Single professional headshot beside the bio. */}
         <section id="about" className="grid grid-cols-1 md:grid-cols-2">
@@ -250,9 +270,17 @@ export default async function Home() {
                 }}
               >
                 Gerald Gyimah is a writer and director based in London. His work examines institutional spaces, procedural language, and the quiet pressures through which systems produce outcomes.
-
               </p>
-
+              <p
+                className="font-light"
+                style={{
+                  fontSize: "14px",
+                  color: colors.text.primary,
+                  lineHeight: typography.leading.loose,
+                }}
+              >
+                His films examine how ordinary conversations, administrative processes and institutional spaces quietly determine people’s lives.
+              </p>
               <p
                 className="font-light"
                 style={{
@@ -274,37 +302,6 @@ export default async function Home() {
               className="object-cover object-top hidden"
             />
           </div>
-        </section>
-
-        <Divider />
-
-        {/* ══ 4. DIRECTING ═════════════════════════════════════
-            Black-and-white BTS — director with crew around the monitor. */}
-        <section id="directing" className="px-0 md:px-12 py-14 md:py-20">
-          <SectionLabel style={{ paddingLeft: 12 }}>Directing</SectionLabel>
-
-          <div
-            className="relative w-full overflow-hidden mt-8"
-            style={{ aspectRatio: "16/9" }}
-          >
-            <Image
-              src={directingBTS}
-              alt="Gerald Gyimah on set with crew, reviewing the monitor"
-              fill
-              className="object-cover grayscale"
-            />
-          </div>
-
-          {/* <p
-            className="text-[11px] uppercase mt-4"
-            style={{
-              color: colors.text.tertiary,
-              letterSpacing: typography.tracking.widest,
-              paddingLeft: 12,
-            }}
-          >
-            On set, undated
-          </p> */}
         </section>
 
         <Divider />
@@ -345,57 +342,86 @@ export default async function Home() {
           <div className="flex flex-col max-w-sm">
             {[
               {
+                label: "Representation",
+                href: "",
+                value: "Independent",
+              },
+              {
                 label: "Email",
-                href: "gerald@geraldgyimah.com",
+                href: "mailto:gerald@geraldgyimah.com",
                 value: "gerald@geraldgyimah.com",
               },
               {
-                label: "Instagram",
+                label: (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                ),
                 href: "https://instagram.com/geraldgyimah",
-                value: "@geraldgyimah",
+                value: "Instagram",
               },
               {
-                label: "IMDb",
+                label: (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="16" viewBox="0 0 48 24" fill="currentColor"><path d="M44.4,4.2H3.6C1.6,4.2,0,5.8,0,7.8v8.4c0,2,1.6,3.6,3.6,3.6h40.8c2,0,3.6-1.6,3.6-3.6V7.8 C48,5.8,46.4,4.2,44.4,4.2z M13.8,16.8H11l-0.8-3.9h-0.1l-0.9,3.9H6.4V7.2h2.7v5.5h0.1l1.1-5.5h2.8l1,5.5h0.1v-5.5h2.6V16.8z M23.3,16.8h-2.5v-7.3h-0.1l-1.4,7.3h-2.1l-1.3-7.3h-0.1v7.3h-2.4V7.2h3.9l1.1,6.1h0.1l1.2-6.1h3.7V16.8z M33.5,16.8h-3v-9.6h1.9 v1.5h0.1c0.4-1.2,1.6-1.7,2.8-1.7c2.6,0,3.7,1.9,3.7,4.8v0.2C39,15.6,37,16.8,33.5,16.8z M45.4,16.8h-2.3v-1.1h-0.1 c-0.5,0.9-1.5,1.3-2.6,1.3c-2,0-3.1-1.3-3.1-4v-0.5c0-3.3,1.6-5.5,4.3-5.5c1.4,0,2.1,0.6,2.4,1.4h0.1V4.5h2.4V16.8z"/><path d="M33.4,9.1c-0.8,0-1.2,0.4-1.2,1.5v3.9c0,0.9,0.4,1.3,1.2,1.3c0.9,0,1.4-0.6,1.4-2.1v-2.3C34.8,9.7,34.4,9.1,33.4,9.1z"/><path d="M42.8,10.6c0-0.9-0.4-1.4-1.1-1.4c-0.8,0-1.2,0.6-1.2,1.8v3.2c0,1,0.4,1.5,1.1,1.5c0.7,0,1.1-0.5,1.1-1.5V10.6z"/></svg>
+                ),
                 href: "https://imdb.com/name/geraldgyimah",
-                value: "Gerald Gyimah",
+                value: "IMDb",
               },
-            ].map(({ label, href, value }) => (
-              <Link
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  href.startsWith("http") ? "noopener noreferrer" : undefined
-                }
-                className="group flex justify-between items-center py-4 transition-opacity duration-200 hover:opacity-60"
-                style={{
-                  borderBottom: `1px solid ${colors.border}`,
-                  textDecoration: "none",
-                }}
-              >
-                <span
-                  className="text-[10px] uppercase"
+            ].map(({ label, href, value }, idx) => {
+              const Content = (
+                <>
+                  <span
+                    className="text-[10px] uppercase flex items-center"
+                    style={{
+                      color: colors.text.tertiary,
+                      letterSpacing: typography.tracking.widest,
+                    }}
+                  >
+                    {label}
+                  </span>
+                  <span
+                    className="text-[11px] flex items-center gap-2"
+                    style={{ color: colors.text.secondary }}
+                  >
+                    {value}
+                    {href && (
+                      <span
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        style={{ color: colors.text.tertiary }}
+                      >
+                        →
+                      </span>
+                    )}
+                  </span>
+                </>
+              );
+
+              return href ? (
+                <Link
+                  key={idx}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    href.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
+                  className="group flex justify-between items-center py-4 transition-opacity duration-200 hover:opacity-60"
                   style={{
-                    color: colors.text.tertiary,
-                    letterSpacing: typography.tracking.widest,
+                    borderBottom: `1px solid ${colors.border}`,
+                    textDecoration: "none",
                   }}
                 >
-                  {label}
-                </span>
-                <span
-                  className="text-[11px] flex items-center gap-2"
-                  style={{ color: colors.text.secondary }}
+                  {Content}
+                </Link>
+              ) : (
+                <div
+                  key={idx}
+                  className="group flex justify-between items-center py-4"
+                  style={{
+                    borderBottom: `1px solid ${colors.border}`,
+                  }}
                 >
-                  {value}
-                  <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    style={{ color: colors.text.tertiary }}
-                  >
-                    →
-                  </span>
-                </span>
-              </Link>
-            ))}
+                  {Content}
+                </div>
+              );
+            })}
           </div>
         </section>
       </main>
