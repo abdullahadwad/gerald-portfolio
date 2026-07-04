@@ -189,11 +189,10 @@ export default async function ProjectPage({
             <div
               className="inline-grid px-6 md:px-0"
               style={{
-                gridTemplateColumns: "repeat(4, auto)",
+                gridTemplateColumns: "repeat(3, auto)",
                 border: `1px solid ${colors.border}`,
               }}
             >
-              <MetaCell label="Year" value={String(project.year)} />
               <MetaCell label="Format" value={project.format} />
               <MetaCell label="Duration" value={project.duration} />
               <MetaCell label="Status" value={project.status} last />

@@ -44,12 +44,12 @@ export default function WorkPage() {
         <div
           className="hidden md:grid px-12 py-3"
           style={{
-            gridTemplateColumns: "80px 1fr 140px 140px 40px",
+            gridTemplateColumns: "1fr 140px 140px 40px",
             gap: "24px",
             borderBottom: `1px solid ${colors.border}`,
           }}
         >
-          {["Year", "Title", "Format", "Status", ""].map((col) => (
+          {["Title", "Format", "Status", ""].map((col) => (
             <span
               key={col}
               className="text-[9px] uppercase"
@@ -72,7 +72,7 @@ export default function WorkPage() {
                 className="group flex flex-col gap-2 px-6 py-5 md:grid md:gap-6 md:py-5 md:px-12 transition-colors duration-200 hover:bg-opacity-100"
                 style={{
                   
-                  gridTemplateColumns: "80px 1fr 140px 140px 40px",
+                  gridTemplateColumns: "1fr 140px 140px 40px",
                   alignItems: "center",
                   borderBottom: `1px solid ${colors.border}`,
                   textDecoration: "none",
@@ -95,18 +95,8 @@ export default function WorkPage() {
                   </span>
                 </div>
 
-                {/* Meta row (mobile: year · format · status inline) */}
+                {/* Meta row (mobile: format · status inline) */}
                 <div className="flex items-center gap-4 md:contents">
-                  <span
-                    className="text-[11px] tabular-nums md:order-1"
-                    style={{
-                      color: colors.text.tertiary,
-                      letterSpacing: typography.tracking.wide,
-                    }}
-                  >
-                    {project.year}
-                  </span>
-
                   <span
                     className="text-[10px] uppercase md:order-3"
                     style={{
