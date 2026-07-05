@@ -133,7 +133,7 @@ export default function ContactPage() {
             className="pb-12 md:pb-0 md:pr-16 md:border-r"
             style={{ borderColor: colors.border }}
           >
-            <SectionLabel>Representation &amp; Enquiries</SectionLabel>
+            <SectionLabel>{/* Representation &amp; */}Enquiries</SectionLabel>
 
             <p
               className="font-light mt-8 mb-10 max-w-sm"

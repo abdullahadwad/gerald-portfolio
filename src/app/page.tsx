@@ -341,11 +341,11 @@ export default async function Home() {
 
           <div className="flex flex-col max-w-sm">
             {[
-              {
+              /* {
                 label: "Representation",
                 href: "",
                 value: "Independent",
-              },
+              }, */
               {
                 label: "Email",
                 href: "mailto:gerald@geraldgyimah.com",
