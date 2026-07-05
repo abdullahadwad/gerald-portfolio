@@ -22,7 +22,7 @@ const enquiries = [
 ];
 
 const links = [
-  { label: "IMDb", href: "https://imdb.com", value: "/geraldgyimah" },
+  { label: "IMDb", href: "https://pro.imdb.com/name/nm10308534/public/?ref_=ext_shr_wts", value: "/geraldgyimah" },
   { label: "Vimeo", href: "https://vimeo.com", value: "/geraldgyimah" },
   { label: "Instagram", href: "https://www.instagram.com/gerald.gyimah/", value: "@gerald.gyimah" },
 ];
