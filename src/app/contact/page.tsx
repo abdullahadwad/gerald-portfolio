@@ -24,7 +24,7 @@ const enquiries = [
 const links = [
   { label: "IMDb", href: "https://imdb.com", value: "/geraldgyimah" },
   { label: "Vimeo", href: "https://vimeo.com", value: "/geraldgyimah" },
-  { label: "Instagram", href: "https://instagram.com", value: "@geraldgyimah" },
+  { label: "Instagram", href: "https://www.instagram.com/gerald.gyimah/", value: "@gerald.gyimah" },
 ];
 
 function ContactRow({
