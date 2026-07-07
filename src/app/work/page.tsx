@@ -1,8 +1,35 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { colors, typography } from "@/assets/util";
 import Link from "next/link";
 import { projects, statusColor, Project } from "@/assets/data";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://geraldgyimah.com";
+
+export const metadata: Metadata = {
+  title: "Films",
+  description:
+    "The complete film work of Gerald Gyimah — On Record, Protocol, Consultation, and Assessment. Short films produced under Still Room Productions, London.",
+  alternates: {
+    canonical: `${siteUrl}/work`,
+  },
+  openGraph: {
+    title: "Films | Gerald Gyimah",
+    description:
+      "The complete film work of Gerald Gyimah — On Record, Protocol, Consultation, and Assessment. Short films produced under Still Room Productions, London.",
+    url: `${siteUrl}/work`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Films | Gerald Gyimah",
+    description:
+      "The complete film work of Gerald Gyimah — On Record, Protocol, Consultation, and Assessment. Short films produced under Still Room Productions, London.",
+  },
+};
+
 
 export default function WorkPage() {
   return (

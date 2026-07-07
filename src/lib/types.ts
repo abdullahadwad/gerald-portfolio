@@ -25,6 +25,8 @@ export interface Project {
   credits: Credit[];
   production: { company: string; country: string; language: string };
   festivals: string[];
+  synopsis?: string;
+  releaseDate?: string;
   order?: number;
 }
 
