@@ -125,8 +125,11 @@ const personSchema = {
     "@id": `${siteUrl}/#still-room-productions`,
     name: "Still Room Productions",
   },
-  // TODO: add IMDb, Instagram, National Theatre profile URLs once confirmed
-  sameAs: [],
+  sameAs: [
+    "https://www.imdb.com/name/nm10308534/",
+    "https://www.instagram.com/gerald.gyimah/",
+    "https://oldvic.ac.uk/student/gerald-gyimah/"
+  ],
 };
 
 const organizationSchema = {
@@ -134,7 +137,7 @@ const organizationSchema = {
   "@type": "Organization",
   "@id": `${siteUrl}/#still-room-productions`,
   name: "Still Room Productions",
-  url: siteUrl,
+  url: "https://www.stillroomproductions.com",
   founder: {
     "@type": "Person",
     "@id": `${siteUrl}/#gerald-gyimah`,
@@ -145,6 +148,12 @@ const organizationSchema = {
     addressLocality: "London",
     addressCountry: "GB",
   },
+  sameAs: [
+    "https://www.stillroomproductions.com",
+    "https://www.instagram.com/stillroomproductions",
+    "https://www.youtube.com/@stillroomprod",
+    "https://www.tiktok.com/@stillroomproductions"
+  ],
 };
 
 const websiteSchema = {

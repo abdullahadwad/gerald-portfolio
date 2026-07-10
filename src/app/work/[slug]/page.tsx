@@ -441,7 +441,7 @@ export default async function ProjectPage({
                     >
                       <Image
                         src={src.url}
-                        alt={`${project.title} — still ${i + 1}`}
+                        alt={src.alt || `${project.title} — still ${i + 1}`}
                         fill
                         className="object-cover"
                       />

@@ -10,6 +10,7 @@ export interface Credit {
 export interface SanityImageRef {
   _key: string;
   url: string;
+  alt?: string;
   hotspot?: { x: number; y: number; height: number; width: number };
 }
 
