@@ -8,22 +8,20 @@ import { getAllProjects } from "@/lib/queries";
 
 // ---------- sub-components ----------
 
-function MetaCell({
+function MetaRow({
   label,
   value,
-  last = false,
 }: {
   label: string;
   value: string;
-  last?: boolean;
 }) {
   return (
     <div
-      className="px-4 md:px-6 py-3"
-      style={{ borderRight: last ? "none" : `1px solid ${colors.border}` }}
+      className="flex items-baseline justify-between gap-4 py-3"
+      style={{ borderBottom: `1px solid ${colors.border}` }}
     >
       <p
-        className="text-[9px] uppercase mb-1 whitespace-nowrap"
+        className="text-[9px] uppercase whitespace-nowrap"
         style={{
           color: colors.text.tertiary,
           letterSpacing: typography.tracking.widest,
@@ -32,7 +30,7 @@ function MetaCell({
         {label}
       </p>
       <p
-        className="text-[12px] whitespace-nowrap"
+        className="text-[12px] text-right"
         style={{
           color: colors.text.primary,
           letterSpacing: typography.tracking.normal,
@@ -104,7 +102,6 @@ export default async function ProjectPage({
   const { slug } = await params;
   const projects = await getAllProjects();
   const project = projects.find((p) => p.slug === slug);
-  console.log(slug);
 
   if (!project) {
     return (
@@ -144,25 +141,25 @@ export default async function ProjectPage({
     );
   }
 
+  const stills = project.stills && project.stills.length > 0 ? project.stills : null;
+
   return (
     <>
       <Navbar />
       <main
-        className="min-h-screen pt-[72px]"
         style={{
           backgroundColor: colors.background.main,
           fontFamily: typography.fonts.primary,
         }}
       >
-        {/* ── Header ── */}
+        {/* ── Header: back link + title ── */}
         <div
-          className="px-6 md:px-12 pb-8 md:pb-12 pt-8 md:pt-12"
+          className="px-6 md:px-12 pt-[88px] pb-6 md:pt-[100px] md:pb-6"
           style={{ borderBottom: `1px solid ${colors.border}` }}
         >
-          {/* Back link */}
           <Link
             href="/work"
-            className="inline-block text-[10px] uppercase mb-6 md:mb-10 transition-colors duration-200"
+            className="inline-block text-[10px] uppercase mb-3 transition-colors duration-200"
             style={{
               color: colors.text.tertiary,
               letterSpacing: typography.tracking.widest,
@@ -171,59 +168,98 @@ export default async function ProjectPage({
           >
             ← Work Index
           </Link>
-
-          {/* Title */}
           <h1
-            className="font-light tracking-[-0.02em] mb-6 md:mb-8"
+            className="font-light tracking-[-0.02em]"
             style={{
-              fontSize: "clamp(28px, 3vw, 42px)",
+              fontSize: "clamp(24px, 2.8vw, 36px)",
               color: colors.text.primary,
               lineHeight: typography.leading.tight,
             }}
           >
             {project.title}
           </h1>
-
-          {/* Meta strip */}
-          <div className="-mx-6 md:mx-0 overflow-x-auto">
-            <div
-              className="inline-grid px-6 md:px-0"
-              style={{
-                gridTemplateColumns: "repeat(3, auto)",
-                border: `1px solid ${colors.border}`,
-              }}
-            >
-              <MetaCell label="Format" value={project.format} />
-              <MetaCell label="Duration" value={project.duration} />
-              <MetaCell label="Status" value={project.status} last />
-            </div>
-          </div>
         </div>
 
-        {/* ── Body ── */}
-        <div
-          className="grid grid-cols-1"
-          style={{ gridTemplateColumns: undefined }}
-        >
-          <div className="md:hidden contents">{/* placeholder to keep structure clear on mobile */}</div>
+        <div className="flex flex-col md:flex-row">
+          {/* ── Images (primary content, shown first) ── */}
+          <div className="order-1 md:order-1 md:flex-1">
+            {/* Stills grid — same size images as before, just visible immediately */}
+            {stills ? (
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2"
+                style={{ gap: "1px", backgroundColor: colors.border }}
+              >
+                {stills.map((src: any, i: number) => (
+                  <div
+                    key={i}
+                    className="relative overflow-hidden"
+                    style={{
+                      aspectRatio: "16/10",
+                      backgroundColor: colors.background.alt,
+                    }}
+                  >
+                    <Image
+                      src={src.url}
+                      alt={`${project.title} — still ${i + 1}`}
+                      fill
+                      priority={i === 0}
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2"
+                style={{ gap: "1px", backgroundColor: colors.border }}
+              >
+                {[1, 2, 3, 4].map((n) => (
+                  <StillPlaceholder key={n} index={n} />
+                ))}
+              </div>
+            )}
+
+            {/* Trailer */}
+            {/* @ts-ignore */}
+            {project.trailerUrl && (
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: "16/9", backgroundColor: colors.background.alt }}
+              >
+                <iframe
+                  /* @ts-ignore */
+                  src={project.trailerUrl}
+                  className="absolute top-0 left-0 w-full h-full border-0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            )}
+          </div>
+
+          {/* ── Info sidebar ── */}
           <div
-            className="grid grid-cols-1 md:grid-cols-[1fr_320px]"
+            className="order-2 md:order-2 md:w-[340px] md:flex-shrink-0"
+            style={{ borderLeft: `1px solid ${colors.border}` }}
           >
-            {/* Main */}
-            <div
-              className="px-6 md:px-12 py-8 md:py-12 md:border-r"
-              style={{ borderColor: colors.border, borderRightWidth: undefined }}
-            >
+            <div className="px-6 md:px-8 py-8 flex flex-col gap-10">
+              {/* Meta */}
+              <div>
+                <SidebarLabel>Details</SidebarLabel>
+                <MetaRow label="Format" value={project.format} />
+                <MetaRow label="Duration" value={project.duration} />
+                <MetaRow label="Status" value={project.status} />
+              </div>
+
               {/* Logline */}
               {project.logline && (
                 <p
-                  className="font-light mb-10 md:mb-12 max-w-xl"
+                  className="font-light text-[14px]"
                   style={{
-                    fontSize: "16px",
                     color: colors.text.primary,
                     lineHeight: typography.leading.relaxed,
                     borderLeft: `1px solid ${colors.border}`,
-                    paddingLeft: "24px",
+                    paddingLeft: "16px",
                   }}
                 >
                   {project.logline}
@@ -234,7 +270,7 @@ export default async function ProjectPage({
               {/* @ts-ignore */}
               {project.shortParagraph && (
                 <p
-                  className="font-light mb-10 md:mb-12 max-w-xl text-[14px]"
+                  className="font-light text-[13px]"
                   style={{
                     color: colors.text.secondary,
                     lineHeight: typography.leading.loose,
@@ -245,122 +281,6 @@ export default async function ProjectPage({
                 </p>
               )}
 
-              {/* Trailer */}
-              {/* @ts-ignore */}
-              {project.trailerUrl && (
-                <div className="mb-10 md:mb-12">
-                  <div
-                    className="relative w-full overflow-hidden"
-                    style={{ aspectRatio: "16/9", backgroundColor: colors.background.alt }}
-                  >
-                    <iframe
-                      /* @ts-ignore */
-                      src={project.trailerUrl}
-                      className="absolute top-0 left-0 w-full h-full border-0"
-                      allow="autoplay; fullscreen; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-              )}
-
-              {/* Festival laurels / Awards */}
-              {/* @ts-ignore */}
-              {project.awards && project.awards.length > 0 && (
-                <div className="mb-10 md:mb-12">
-                  <p
-                    className="text-[9px] uppercase mb-4"
-                    style={{
-                      color: colors.text.tertiary,
-                      letterSpacing: typography.tracking.widest,
-                    }}
-                  >
-                    Awards & Laurels
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    {/* @ts-ignore */}
-                    {project.awards.map((award: any, i: number) => (
-                      <div key={i} className="text-[12px]" style={{ color: colors.text.secondary }}>
-                        {award.title}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Stills */}
-              <p
-                className="text-[9px] uppercase mb-4"
-                style={{
-                  color: colors.text.tertiary,
-                  letterSpacing: typography.tracking.widest,
-                }}
-              >
-                Stills
-              </p>
-
-              {project.stills && project.stills.length > 0 ? (
-                <div
-                  className="grid grid-cols-1 sm:grid-cols-2"
-                  style={{ gap: "1px", backgroundColor: colors.border }}
-                >
-                  {project.stills.map((src: any, i: number) => (
-                    <div
-                      key={i}
-                      className="relative overflow-hidden"
-                      style={{
-                        aspectRatio: "16/10",
-                        backgroundColor: colors.background.alt,
-                      }}
-                    >
-                      <Image
-                        src={src.url}
-                        alt={`${project.title} — still ${i + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div
-                  className="grid grid-cols-1 sm:grid-cols-2"
-                  style={{ gap: "1px", backgroundColor: colors.border }}
-                >
-                  {[1, 2, 3, 4].map((n) => (
-                    <StillPlaceholder key={n} index={n} />
-                  ))}
-                </div>
-              )}
-
-              {/* Press Kit PDF */}
-              {/* @ts-ignore */}
-              {project.pressKitUrl && (
-                <div className="mt-10 md:mt-12">
-                  <a
-                    /* @ts-ignore */
-                    href={project.pressKitUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block text-[10px] uppercase transition-opacity duration-200 hover:opacity-60"
-                    style={{
-                      color: colors.text.primary,
-                      letterSpacing: typography.tracking.widest,
-                      borderBottom: `1px solid ${colors.border}`,
-                      paddingBottom: "4px",
-                    }}
-                  >
-                    Download Press Kit ↓
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* Sidebar */}
-            <div
-              className="px-6 md:px-8 py-8 md:py-12 flex flex-col gap-10 border-t md:border-t-0"
-              style={{ borderColor: colors.border }}
-            >
               {/* Credits */}
               <div>
                 <SidebarLabel>Credits</SidebarLabel>
@@ -387,6 +307,47 @@ export default async function ProjectPage({
                     <CreditRow key={f} role={f} name="" />
                   ))}
                 </div>
+              )}
+
+              {/* Awards */}
+              {/* @ts-ignore */}
+              {project.awards && project.awards.length > 0 && (
+                <div>
+                  <SidebarLabel>Awards & Laurels</SidebarLabel>
+                  {/* @ts-ignore */}
+                  {project.awards.map((award: any, i: number) => (
+                    <div
+                      key={i}
+                      className="py-2 text-[11px]"
+                      style={{
+                        color: colors.text.secondary,
+                        borderBottom: `1px solid ${colors.border}`,
+                      }}
+                    >
+                      {award.title}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Press Kit PDF */}
+              {/* @ts-ignore */}
+              {project.pressKitUrl && (
+                <a
+                  /* @ts-ignore */
+                  href={project.pressKitUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-[10px] uppercase transition-opacity duration-200 hover:opacity-60 self-start"
+                  style={{
+                    color: colors.text.primary,
+                    letterSpacing: typography.tracking.widest,
+                    borderBottom: `1px solid ${colors.border}`,
+                    paddingBottom: "4px",
+                  }}
+                >
+                  Download Press Kit ↓
+                </a>
               )}
             </div>
           </div>
