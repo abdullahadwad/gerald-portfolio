@@ -1,18 +1,46 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { colors, typography } from "@/assets/util";
+import { getAllProjects } from "@/lib/queries";
 // import person1 from "@/assets/images/person1.jpg";
 // import person2 from "@/assets/images/person2.jpg";
 
-const selectedWork = [
-  { title: "Nocturne", year: "2024 — In Development", slug: "nocturne" },
-  { title: "The Waiting Room", year: "2023", slug: "the-waiting-room" },
-  { title: "Corridor", year: "2022", slug: "corridor" },
-];
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://geraldgyimah.com";
 
-export default function AboutPage() {
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn more about Gerald Gyimah, a London-based writer and director exploring institutional spaces, procedural language, and unspoken pressure.",
+  alternates: {
+    canonical: `${siteUrl}/about`,
+  },
+  openGraph: {
+    title: "About | Gerald Gyimah",
+    description:
+      "Learn more about Gerald Gyimah, a London-based writer and director exploring institutional spaces and systems.",
+    url: `${siteUrl}/about`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About | Gerald Gyimah",
+    description:
+      "Learn more about Gerald Gyimah, a London-based writer and director exploring institutional spaces and systems.",
+  },
+};
+
+export default async function AboutPage() {
+  const allProjects = await getAllProjects();
+  // Show top 3 projects as "Selected Work"
+  const selectedWork = allProjects.slice(0, 3).map((p) => ({
+    title: p.title,
+    year: p.status === "In Development" ? `${p.year} — In Development` : String(p.year),
+    slug: p.slug,
+  }));
   return (
     <>
       <Navbar />
@@ -35,15 +63,15 @@ export default function AboutPage() {
               className="py-8 md:py-10"
               style={{ borderBottom: `1px solid ${colors.border}` }}
             >
-              <span
-                className="text-[9px] uppercase"
+              <h1
+                className="text-[9px] uppercase font-normal m-0"
                 style={{
                   color: colors.text.tertiary,
                   letterSpacing: typography.tracking.widest,
                 }}
               >
                 About — Gerald Gyimah
-              </span>
+              </h1>
             </div>
 
             {/* Bio */}

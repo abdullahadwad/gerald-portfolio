@@ -17,7 +17,18 @@ export const projectSchema = defineType({
     defineField({ name: 'logline', type: 'text', title: 'Logline', rows: 3 }),
     defineField({
       name: 'stills', type: 'array', title: 'Stills',
-      of: [defineArrayMember({ type: 'image', options: { hotspot: true } })]
+      of: [defineArrayMember({
+        type: 'image',
+        options: { hotspot: true },
+        fields: [
+          {
+            name: 'alt',
+            type: 'string',
+            title: 'Alternative Text (for SEO & accessibility)',
+            validation: (Rule: any) => Rule.required().warning('Alt text is recommended for accessibility and SEO.'),
+          },
+        ],
+      })]
     }),
     defineField({
       name: 'credits', type: 'array', title: 'Credits',

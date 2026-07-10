@@ -133,15 +133,15 @@ export default function ContactPage() {
           className="flex items-end justify-between px-6 md:px-12 py-10"
           style={{ borderBottom: `1px solid ${colors.border}` }}
         >
-          <span
-            className="text-[10px] uppercase"
+          <h1
+            className="text-[10px] uppercase font-normal m-0"
             style={{
               color: colors.text.tertiary,
               letterSpacing: typography.tracking.widest,
             }}
           >
             Contact
-          </span>
+          </h1>
           <span
             className="text-[10px] uppercase"
             style={{

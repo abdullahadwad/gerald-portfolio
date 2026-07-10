@@ -3,7 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { colors, typography } from "@/assets/util";
 import Link from "next/link";
-import { projects, statusColor, Project } from "@/assets/data";
+import { statusColor } from "@/lib/types";
+import { getAllProjects } from "@/lib/queries";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://geraldgyimah.com";
@@ -29,9 +30,10 @@ export const metadata: Metadata = {
       "The complete film work of Gerald Gyimah — On Record, Protocol, Consultation, and Assessment. Short films produced under Still Room Productions, London.",
   },
 };
+export const dynamic = 'force-dynamic';
 
-
-export default function WorkPage() {
+export default async function WorkPage() {
+  const projects = await getAllProjects();
   return (
     <>
       <Navbar />
@@ -47,15 +49,15 @@ export default function WorkPage() {
           className="flex items-end justify-between px-6 md:px-12 py-10"
           style={{ borderBottom: `1px solid ${colors.border}` }}
         >
-          <span
-            className="text-[10px] uppercase"
+          <h1
+            className="text-[10px] uppercase font-normal m-0"
             style={{
               color: colors.text.tertiary,
               letterSpacing: typography.tracking.widest,
             }}
           >
             Work — Index
-          </span>
+          </h1>
           <span
             className="text-[10px] uppercase"
             style={{
