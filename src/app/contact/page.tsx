@@ -1,7 +1,34 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { colors, typography } from "@/assets/util";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://geraldgyimah.com";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with Gerald Gyimah — London-based writer and director. Available for commissions, collaboration, and press enquiries via Still Room Productions.",
+  alternates: {
+    canonical: `${siteUrl}/contact`,
+  },
+  openGraph: {
+    title: "Contact | Gerald Gyimah",
+    description:
+      "Get in touch with Gerald Gyimah — London-based writer and director. Available for commissions, collaboration, and press enquiries via Still Room Productions.",
+    url: `${siteUrl}/contact`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact | Gerald Gyimah",
+    description:
+      "Get in touch with Gerald Gyimah — London-based writer and director. Available for commissions, collaboration, and press enquiries via Still Room Productions.",
+  },
+};
+
 
 const enquiries = [
   {
@@ -106,15 +133,15 @@ export default function ContactPage() {
           className="flex items-end justify-between px-6 md:px-12 py-10"
           style={{ borderBottom: `1px solid ${colors.border}` }}
         >
-          <span
-            className="text-[10px] uppercase"
+          <h1
+            className="text-[10px] uppercase font-normal m-0"
             style={{
               color: colors.text.tertiary,
               letterSpacing: typography.tracking.widest,
             }}
           >
             Contact
-          </span>
+          </h1>
           <span
             className="text-[10px] uppercase"
             style={{

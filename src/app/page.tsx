@@ -291,6 +291,18 @@ export default async function Home() {
               >
                 He is the founder of Still Room Productions, through which he develops and produces independent work.
               </p>
+
+              <Link
+                href="/about"
+                className="text-[11px] uppercase mt-2 transition-opacity duration-200 hover:opacity-60"
+                style={{
+                  color: colors.text.tertiary,
+                  letterSpacing: typography.tracking.wider,
+                  textDecoration: "none",
+                }}
+              >
+                Full bio →
+              </Link>
             </div>
           </div>
 
@@ -328,15 +340,28 @@ export default async function Home() {
         <section id="contact" className="px-6 md:px-12 py-6 mt-6">
           <div className="flex items-start justify-between">
             <SectionLabel>Contact</SectionLabel>
-            <span
-              className="text-[9px] uppercase"
-              style={{
-                color: colors.text.tertiary,
-                letterSpacing: typography.tracking.widest,
-              }}
-            >
-              London, UK
-            </span>
+            <div className="flex items-center gap-6">
+              <Link
+                href="/contact"
+                className="text-[9px] uppercase transition-opacity duration-200 hover:opacity-50"
+                style={{
+                  color: colors.text.tertiary,
+                  letterSpacing: typography.tracking.widest,
+                  textDecoration: "none",
+                }}
+              >
+                All enquiries →
+              </Link>
+              <span
+                className="text-[9px] uppercase"
+                style={{
+                  color: colors.text.tertiary,
+                  letterSpacing: typography.tracking.widest,
+                }}
+              >
+                London, UK
+              </span>
+            </div>
           </div>
 
           <div className="flex flex-col max-w-sm">

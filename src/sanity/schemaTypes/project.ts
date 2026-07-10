@@ -17,7 +17,18 @@ export const projectSchema = defineType({
     defineField({ name: 'logline', type: 'text', title: 'Logline', rows: 3 }),
     defineField({
       name: 'stills', type: 'array', title: 'Stills',
-      of: [defineArrayMember({ type: 'image', options: { hotspot: true } })]
+      of: [defineArrayMember({
+        type: 'image',
+        options: { hotspot: true },
+        fields: [
+          {
+            name: 'alt',
+            type: 'string',
+            title: 'Alternative Text (for SEO & accessibility)',
+            validation: (Rule: any) => Rule.required().warning('Alt text is recommended for accessibility and SEO.'),
+          },
+        ],
+      })]
     }),
     defineField({
       name: 'credits', type: 'array', title: 'Credits',
@@ -41,6 +52,11 @@ export const projectSchema = defineType({
       name: 'festivals', type: 'array', title: 'Festivals',
       of: [defineArrayMember({ type: 'string' })]
     }),
+    // synopsis: 1-2 sentences used for meta descriptions on /work/[slug] pages.
+    // Keep under 160 chars for ideal SEO. Leave blank and logline will be used as fallback.
+    defineField({ name: 'synopsis', type: 'text', title: 'SEO Synopsis (1–2 sentences, ≤160 chars)', rows: 3 }),
+    // releaseDate: used for JSON-LD datePublished on film detail pages.
+    defineField({ name: 'releaseDate', type: 'date', title: 'Release Date' }),
     defineField({ name: 'order', type: 'number', title: 'Display Order' }),
   ],
   orderings: [{ title: 'Display Order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],

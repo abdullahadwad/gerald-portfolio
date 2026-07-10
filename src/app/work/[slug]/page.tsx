@@ -1,10 +1,130 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { colors, typography } from "@/assets/util";
 // import { projects, statusColor, Project } from "@/assets/data";
-import { getAllProjects } from "@/lib/queries";
+import { getAllProjects, getProjectBySlug } from "@/lib/queries";
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://geraldgyimah.com";
+
+// ── Static generation ──────────────────────────────────────────────────────
+// Tell Next.js all valid slugs at build time so /work/[slug] pages are
+// statically generated. Falls back to dynamic rendering if Sanity is down.
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
+  return projects.map((p) => ({ slug: p.slug }));
+}
+
+// ── Per-film metadata ──────────────────────────────────────────────────────
+// Each film gets its own unique title, description, canonical URL, and OG
+// image pulled from Sanity. This prevents duplicate meta descriptions across
+// film pages — a real risk without generateMetadata.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) {
+    return {
+      title: "Film Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  // Prefer synopsis (SEO-tuned, ≤160 chars) → logline → generic fallback
+  const description =
+    project.synopsis ||
+    project.logline ||
+    `${project.title} — a ${project.format?.toLowerCase() ?? "short film"} written and directed by Gerald Gyimah. Still Room Productions, London.`;
+
+  // OG image: use the first Sanity still cropped to 1200×630, or the static
+  // site-level OG image as fallback.
+  const ogImage =
+    project.stills && project.stills.length > 0
+      ? `${project.stills[0].url}?w=1200&h=630&fit=crop&q=85`
+      : `${siteUrl}/opengraph-image`;
+
+  const canonicalUrl = `${siteUrl}/work/${slug}`;
+
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `${project.title} | Gerald Gyimah`,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} — directed by Gerald Gyimah`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Gerald Gyimah`,
+      description,
+      images: [ogImage],
+    },
+  };
+}
+
+// ── JSON-LD: CreativeWork schema for each film ─────────────────────────────
+// Using CreativeWork rather than Movie — short indie festival films don't
+// reliably qualify for Movie rich results, and CreativeWork is more accurate.
+function buildFilmSchema(project: {
+  title: string;
+  logline?: string;
+  synopsis?: string;
+  format?: string;
+  year?: number;
+  releaseDate?: string;
+  slug: string;
+  production?: { company?: string; country?: string };
+}) {
+  const description =
+    project.synopsis ||
+    project.logline ||
+    `${project.title}, directed by Gerald Gyimah.`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description,
+    url: `${siteUrl}/work/${project.slug}`,
+    ...(project.releaseDate ? { datePublished: project.releaseDate } : {}),
+    ...(project.year ? { copyrightYear: project.year } : {}),
+    inLanguage: "en-GB",
+    countryOfOrigin: {
+      "@type": "Country",
+      name: "United Kingdom",
+    },
+    director: {
+      "@type": "Person",
+      "@id": `${siteUrl}/#gerald-gyimah`,
+      name: "Gerald Gyimah",
+    },
+    productionCompany: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#still-room-productions`,
+      name: "Still Room Productions",
+    },
+  };
+}
+
 
 // ---------- sub-components ----------
 
@@ -145,6 +265,12 @@ export default async function ProjectPage({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildFilmSchema(project)),
+        }}
+      />
       <Navbar />
       <main
         style={{

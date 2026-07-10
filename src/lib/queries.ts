@@ -11,6 +11,7 @@ const PROJECT_FIELDS = `
   logline,
   stills[]{
   _key,
+  alt,
   "url": asset->url,
   hotspot
 },
@@ -24,6 +25,8 @@ const PROJECT_FIELDS = `
     language
   },
   festivals,
+  synopsis,
+  releaseDate,
   order
 `
 
