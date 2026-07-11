@@ -204,7 +204,7 @@ export default async function Home() {
                   style={{ borderTop: `1px solid ${colors.border}` }}
                 >
                   <span
-                    className="text-[12px] font-light"
+                    className="text-[14px] font-light"
                     style={{ color: colors.text.primary }}
                   >
                     {project.title}

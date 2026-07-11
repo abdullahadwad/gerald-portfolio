@@ -189,12 +189,12 @@ function CreditRow({ role, name }: { role: string; name: string }) {
   );
 }
 
-function StillPlaceholder({ index }: { index: number }) {
+function StillPlaceholder({ index, isHero }: { index: number; isHero?: boolean }) {
   return (
     <div
-      className="flex items-center justify-center"
+      className={`flex items-center justify-center ${isHero ? 'sm:col-span-2' : ''}`}
       style={{
-        aspectRatio: "16/10",
+        aspectRatio: isHero ? "16/9" : "16/10",
         backgroundColor: colors.background.alt,
         border: `1px solid ${colors.border}`,
       }}
@@ -263,6 +263,42 @@ export default async function ProjectPage({
 
   const stills = project.stills && project.stills.length > 0 ? project.stills : null;
 
+  const formatDuration = (d?: any) => {
+    if (!d) return d;
+    const str = String(d).trim();
+    if (/^\d+$/.test(str)) return `${str} mins`;
+    if (/^\d+\s*min(s)?$/i.test(str)) return `${str.replace(/min(s)?$/i, '').trim()} mins`;
+    return str;
+  };
+
+  const processCredits = (credits?: any[]) => {
+    if (!credits) return [];
+    const directors = credits.filter((c: any) => c.role.toLowerCase() === 'director');
+    const writers = credits.filter((c: any) => c.role.toLowerCase() === 'writer');
+    const shouldCombine = directors.length === 1 && writers.length === 1 && directors[0].name === writers[0].name;
+    const processed: { role: string; name: string }[] = [];
+    
+    if (shouldCombine) {
+      processed.push({ role: 'Written & Directed by', name: directors[0].name });
+    }
+    
+    credits.forEach((c: any) => {
+      const roleLower = c.role.toLowerCase();
+      if (shouldCombine && (roleLower === 'director' || roleLower === 'writer')) return;
+      
+      let roleName = c.role;
+      if (roleLower === 'cast') roleName = 'Starring';
+      
+      processed.push({ role: roleName, name: c.name });
+    });
+    
+    return processed;
+  };
+
+  const displayDuration = formatDuration(project.duration);
+  const displayStatus = project.status?.toLowerCase() === 'complete' ? 'Completed' : project.status;
+  const processedCredits = processCredits(project.credits);
+
   return (
     <>
       <script
@@ -297,7 +333,7 @@ export default async function ProjectPage({
           <h1
             className="font-light tracking-[-0.02em]"
             style={{
-              fontSize: "clamp(24px, 2.8vw, 36px)",
+              fontSize: "clamp(28px, 3.2vw, 42px)",
               color: colors.text.primary,
               lineHeight: typography.leading.tight,
             }}
@@ -315,33 +351,37 @@ export default async function ProjectPage({
                 className="grid grid-cols-1 sm:grid-cols-2"
                 style={{ gap: "1px", backgroundColor: colors.border }}
               >
-                {stills.map((src: any, i: number) => (
-                  <div
-                    key={i}
-                    className="relative overflow-hidden"
-                    style={{
-                      aspectRatio: "16/10",
-                      backgroundColor: colors.background.alt,
-                    }}
-                  >
-                    <Image
-                      src={src.url}
-                      alt={`${project.title} — still ${i + 1}`}
-                      fill
-                      priority={i === 0}
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
+                {stills.map((src: any, i: number) => {
+                  const isHero = stills.length % 2 !== 0 && i === 0;
+                  return (
+                    <div
+                      key={i}
+                      className={`relative overflow-hidden ${isHero ? 'sm:col-span-2' : ''}`}
+                      style={{
+                        aspectRatio: isHero ? "16/9" : "16/10",
+                        backgroundColor: colors.background.alt,
+                      }}
+                    >
+                      <Image
+                        src={src.url}
+                        alt={`${project.title} — still ${i + 1}`}
+                        fill
+                        priority={i === 0}
+                        className="object-cover"
+                      />
+                    </div>
+                  );
+                })}
               </div>
             ) : (
               <div
                 className="grid grid-cols-1 sm:grid-cols-2"
                 style={{ gap: "1px", backgroundColor: colors.border }}
               >
-                {[1, 2, 3, 4].map((n) => (
-                  <StillPlaceholder key={n} index={n} />
-                ))}
+                {[1, 2, 3].map((n, i, arr) => {
+                  const isHero = arr.length % 2 !== 0 && i === 0;
+                  return <StillPlaceholder key={n} index={n} isHero={isHero} />;
+                })}
               </div>
             )}
 
@@ -365,16 +405,16 @@ export default async function ProjectPage({
 
           {/* ── Info sidebar ── */}
           <div
-            className="order-2 md:order-2 md:w-[340px] md:flex-shrink-0"
+            className="order-2 md:order-2 md:w-[400px] md:flex-shrink-0"
             style={{ borderLeft: `1px solid ${colors.border}` }}
           >
-            <div className="px-6 md:px-8 py-8 flex flex-col gap-10">
+            <div className="px-6 md:px-8 pb-8 pt-6 md:pt-4 flex flex-col gap-10">
               {/* Meta */}
               <div>
                 <SidebarLabel>Details</SidebarLabel>
                 <MetaRow label="Format" value={project.format} />
-                <MetaRow label="Duration" value={project.duration} />
-                <MetaRow label="Status" value={project.status} />
+                <MetaRow label="Duration" value={displayDuration} />
+                <MetaRow label="Status" value={displayStatus} />
               </div>
 
               {/* Logline */}
@@ -410,8 +450,8 @@ export default async function ProjectPage({
               {/* Credits */}
               <div>
                 <SidebarLabel>Credits</SidebarLabel>
-                {project.credits.map((c) => (
-                  <CreditRow key={c.role} role={c.role} name={c.name} />
+                {processedCredits.map((c, i) => (
+                  <CreditRow key={`${c.role}-${i}`} role={c.role} name={c.name} />
                 ))}
               </div>
 
