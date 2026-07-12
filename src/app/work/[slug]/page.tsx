@@ -48,7 +48,7 @@ export async function generateMetadata({
   // OG image: use the first Sanity still cropped to 1200×630, or the static
   // site-level OG image as fallback.
   const ogImage =
-    project.stills && project.stills.length > 0
+    project.stills && project.stills.length > 0 && project.stills[0].url
       ? `${project.stills[0].url}?w=1200&h=630&fit=crop&q=85`
       : `${siteUrl}/opengraph-image`;
 
@@ -273,8 +273,8 @@ export default async function ProjectPage({
 
   const processCredits = (credits?: any[]) => {
     if (!credits) return [];
-    const directors = credits.filter((c: any) => c.role.toLowerCase() === 'director');
-    const writers = credits.filter((c: any) => c.role.toLowerCase() === 'writer');
+    const directors = credits.filter((c: any) => c.role?.toLowerCase() === 'director');
+    const writers = credits.filter((c: any) => c.role?.toLowerCase() === 'writer');
     const shouldCombine = directors.length === 1 && writers.length === 1 && directors[0].name === writers[0].name;
     const processed: { role: string; name: string }[] = [];
     
@@ -283,6 +283,7 @@ export default async function ProjectPage({
     }
     
     credits.forEach((c: any) => {
+      if (!c.role) return;
       const roleLower = c.role.toLowerCase();
       if (shouldCombine && (roleLower === 'director' || roleLower === 'writer')) return;
       
@@ -362,13 +363,17 @@ export default async function ProjectPage({
                         backgroundColor: colors.background.alt,
                       }}
                     >
-                      <Image
-                        src={src.url}
-                        alt={`${project.title} — still ${i + 1}`}
-                        fill
-                        priority={i === 0}
-                        className="object-cover"
-                      />
+                      {src.url ? (
+                        <Image
+                          src={src.url}
+                          alt={`${project.title} — still ${i + 1}`}
+                          fill
+                          priority={i === 0}
+                          className="object-cover"
+                        />
+                      ) : (
+                        <StillPlaceholder index={i + 1} isHero={isHero} />
+                      )}
                     </div>
                   );
                 })}
@@ -467,7 +472,7 @@ export default async function ProjectPage({
 
               {/* Festivals */}
               {/* @ts-ignore */}
-              {project.festivals && project.festivals.length > 0 && (
+              {Array.isArray(project.festivals) && project.festivals.length > 0 && (
                 <div>
                   <SidebarLabel>Festivals</SidebarLabel>
                   {/* @ts-ignore */}
@@ -479,7 +484,7 @@ export default async function ProjectPage({
 
               {/* Awards */}
               {/* @ts-ignore */}
-              {project.awards && project.awards.length > 0 && (
+              {Array.isArray(project.awards) && project.awards.length > 0 && (
                 <div>
                   <SidebarLabel>Awards & Laurels</SidebarLabel>
                   {/* @ts-ignore */}
