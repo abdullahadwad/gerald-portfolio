@@ -456,12 +456,14 @@ export default async function ProjectPage({
               </div>
 
               {/* Production */}
-              <div>
-                <SidebarLabel>Production</SidebarLabel>
-                <CreditRow role="Company" name={project.production.company} />
-                <CreditRow role="Country" name={project.production.country} />
-                <CreditRow role="Language" name={project.production.language} />
-              </div>
+              {project.production && (project.production.company || project.production.country || project.production.language) && (
+                <div>
+                  <SidebarLabel>Production</SidebarLabel>
+                  {project.production.company && <CreditRow role="Company" name={project.production.company} />}
+                  {project.production.country && <CreditRow role="Country" name={project.production.country} />}
+                  {project.production.language && <CreditRow role="Language" name={project.production.language} />}
+                </div>
+              )}
 
               {/* Festivals */}
               {/* @ts-ignore */}
