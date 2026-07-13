@@ -477,17 +477,6 @@ export default async function ProjectPage({
                 </div>
               )}
 
-              {/* Festivals */}
-              {/* @ts-ignore */}
-              {Array.isArray(project.festivals) && project.festivals.length > 0 && (
-                <div>
-                  <SidebarLabel>Festivals</SidebarLabel>
-                  {/* @ts-ignore */}
-                  {project.festivals.map((f: string) => (
-                    <CreditRow key={f} role={f} name="" />
-                  ))}
-                </div>
-              )}
 
               {/* Awards */}
               {/* @ts-ignore */}

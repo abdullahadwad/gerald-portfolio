@@ -28,7 +28,6 @@ const PROJECT_FIELDS = `
     country,
     language
   },
-  festivals,
   synopsis,
   releaseDate,
   order
