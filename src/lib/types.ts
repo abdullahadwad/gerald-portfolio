@@ -23,6 +23,7 @@ export interface Project {
   status: ProjectStatus;
   logline: string;
   stills: SanityImageRef[];
+  cast?: Credit[];
   credits: Credit[];
   production: { company: string; country: string; language: string };
   festivals: string[];

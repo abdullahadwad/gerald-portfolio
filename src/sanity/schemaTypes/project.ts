@@ -31,6 +31,16 @@ export const projectSchema = defineType({
       })]
     }),
     defineField({
+      name: 'cast', type: 'array', title: 'Cast / Starring',
+      of: [defineArrayMember({
+        type: 'object',
+        fields: [
+          { name: 'role', type: 'string', title: 'Character Name' },
+          { name: 'name', type: 'string', title: 'Actor Name' },
+        ]
+      })]
+    }),
+    defineField({
       name: 'credits', type: 'array', title: 'Credits',
       of: [defineArrayMember({
         type: 'object',

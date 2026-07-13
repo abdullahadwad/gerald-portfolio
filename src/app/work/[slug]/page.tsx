@@ -447,13 +447,25 @@ export default async function ProjectPage({
                 </p>
               )}
 
+              {/* Cast */}
+              {project.cast && project.cast.length > 0 && (
+                <div>
+                  <SidebarLabel>Cast</SidebarLabel>
+                  {project.cast.map((c, i) => (
+                    <CreditRow key={`cast-${c.role}-${i}`} role={c.role} name={c.name} />
+                  ))}
+                </div>
+              )}
+
               {/* Credits */}
-              <div>
-                <SidebarLabel>Credits</SidebarLabel>
-                {processedCredits.map((c, i) => (
-                  <CreditRow key={`${c.role}-${i}`} role={c.role} name={c.name} />
-                ))}
-              </div>
+              {processedCredits && processedCredits.length > 0 && (
+                <div>
+                  <SidebarLabel>Credits</SidebarLabel>
+                  {processedCredits.map((c, i) => (
+                    <CreditRow key={`credit-${c.role}-${i}`} role={c.role} name={c.name} />
+                  ))}
+                </div>
+              )}
 
               {/* Production */}
               {project.production && (project.production.company || project.production.country || project.production.language) && (

@@ -15,6 +15,10 @@ const PROJECT_FIELDS = `
   "url": asset->url,
   hotspot
 },
+  cast[]{
+    role,
+    name
+  },
   credits[]{
     role,
     name
