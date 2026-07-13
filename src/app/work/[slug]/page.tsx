@@ -189,12 +189,12 @@ function CreditRow({ role, name }: { role: string; name: string }) {
   );
 }
 
-function StillPlaceholder({ index, isHero }: { index: number; isHero?: boolean }) {
+function StillPlaceholder({ index }: { index: number }) {
   return (
     <div
-      className={`flex items-center justify-center ${isHero ? 'sm:col-span-2' : ''}`}
+      className="flex items-center justify-center"
       style={{
-        aspectRatio: isHero ? "16/9" : "16/10",
+        aspectRatio: "16/10",
         backgroundColor: colors.background.alt,
         border: `1px solid ${colors.border}`,
       }}
@@ -261,7 +261,8 @@ export default async function ProjectPage({
     );
   }
 
-  const stills = project.stills && project.stills.length > 0 ? project.stills : null;
+  const validStills = project.stills?.filter((s: any) => s.url) || null;
+  const stills = validStills && validStills.length > 0 ? validStills : null;
 
   const formatDuration = (d?: any) => {
     if (!d) return d;
@@ -353,27 +354,22 @@ export default async function ProjectPage({
                 style={{ gap: "1px", backgroundColor: colors.border }}
               >
                 {stills.map((src: any, i: number) => {
-                  const isHero = stills.length % 2 !== 0 && i === 0;
                   return (
                     <div
                       key={i}
-                      className={`relative overflow-hidden ${isHero ? 'sm:col-span-2' : ''}`}
+                      className="relative overflow-hidden"
                       style={{
-                        aspectRatio: isHero ? "16/9" : "16/10",
+                        aspectRatio: "16/10",
                         backgroundColor: colors.background.alt,
                       }}
                     >
-                      {src.url ? (
-                        <Image
-                          src={src.url}
-                          alt={`${project.title} — still ${i + 1}`}
-                          fill
-                          priority={i === 0}
-                          className="object-cover"
-                        />
-                      ) : (
-                        <StillPlaceholder index={i + 1} isHero={isHero} />
-                      )}
+                      <Image
+                        src={src.url}
+                        alt={`${project.title} — still ${i + 1}`}
+                        fill
+                        priority={i === 0}
+                        className="object-cover"
+                      />
                     </div>
                   );
                 })}
@@ -383,10 +379,9 @@ export default async function ProjectPage({
                 className="grid grid-cols-1 sm:grid-cols-2"
                 style={{ gap: "1px", backgroundColor: colors.border }}
               >
-                {[1, 2, 3].map((n, i, arr) => {
-                  const isHero = arr.length % 2 !== 0 && i === 0;
-                  return <StillPlaceholder key={n} index={n} isHero={isHero} />;
-                })}
+                {[1, 2].map((n) => (
+                  <StillPlaceholder key={n} index={n} />
+                ))}
               </div>
             )}
 
