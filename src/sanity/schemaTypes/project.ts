@@ -37,7 +37,10 @@ export const projectSchema = defineType({
         fields: [
           { name: 'role', type: 'string', title: 'Character Name' },
           { name: 'name', type: 'string', title: 'Actor Name' },
-        ]
+        ],
+        preview: {
+          select: { title: 'name', subtitle: 'role' }
+        }
       })]
     }),
     defineField({
@@ -47,7 +50,10 @@ export const projectSchema = defineType({
         fields: [
           { name: 'role', type: 'string', title: 'Role' },
           { name: 'name', type: 'string', title: 'Name' },
-        ]
+        ],
+        preview: {
+          select: { title: 'name', subtitle: 'role' }
+        }
       })]
     }),
     defineField({
