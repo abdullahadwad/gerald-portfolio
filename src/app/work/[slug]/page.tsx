@@ -369,6 +369,7 @@ export default async function ProjectPage({
                         fill
                         priority={i === 0}
                         className="object-cover"
+                        style={{ objectFit: "cover" }}
                       />
                     </div>
                   );

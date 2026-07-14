@@ -57,7 +57,7 @@ function AtmosphericBand({
         className="relative w-full overflow-hidden"
         style={{ aspectRatio: "21/9" }}
       >
-        <Image src={src} alt={alt} fill className="object-cover" />
+        <Image src={src} alt={alt} fill className="object-cover" style={{ objectFit: "cover" }} />
         <span
           className="absolute bottom-4 left-6 text-[9px] uppercase"
           style={{
@@ -180,6 +180,7 @@ export default async function Home() {
                       alt={project.title}
                       fill
                       className="object-cover"
+                      style={{ objectFit: "cover" }}
                     />
                   ) : (
                     <div style={{
@@ -245,6 +246,7 @@ export default async function Home() {
               alt="Gerald Gyimah on set with crew, reviewing the monitor"
               fill
               className="object-cover grayscale"
+              style={{ objectFit: "cover" }}
             />
           </div>
         </section>
@@ -312,6 +314,7 @@ export default async function Home() {
               alt="Gerald Gyimah — headshot"
               fill
               className="object-cover object-top hidden"
+              style={{ objectFit: "cover" }}
             />
           </div>
         </section>
