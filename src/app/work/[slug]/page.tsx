@@ -141,7 +141,7 @@ function MetaRow({
       style={{ borderBottom: `1px solid ${colors.border}` }}
     >
       <p
-        className="text-[9px] uppercase whitespace-nowrap"
+        className="text-[10px] uppercase whitespace-nowrap"
         style={{
           color: colors.text.tertiary,
           letterSpacing: typography.tracking.widest,
@@ -150,7 +150,7 @@ function MetaRow({
         {label}
       </p>
       <p
-        className="text-[12px] text-right"
+        className="text-[13px] text-right"
         style={{
           color: colors.text.primary,
           letterSpacing: typography.tracking.normal,
@@ -165,7 +165,7 @@ function MetaRow({
 function SidebarLabel({ children }: { children: React.ReactNode }) {
   return (
     <p
-      className="text-[9px] uppercase pb-3 mb-0"
+      className="text-[10px] uppercase pb-3 mb-0"
       style={{
         color: colors.text.tertiary,
         letterSpacing: typography.tracking.widest,
@@ -180,7 +180,7 @@ function SidebarLabel({ children }: { children: React.ReactNode }) {
 function CreditRow({ role, name }: { role: string; name: string }) {
   return (
     <div
-      className="flex justify-between py-2 text-[11px]"
+      className="flex justify-between py-2 text-[12px]"
       style={{ borderBottom: `1px solid ${colors.border}` }}
     >
       <span style={{ color: colors.text.tertiary }}>{role}</span>
@@ -421,7 +421,7 @@ export default async function ProjectPage({
               {/* Logline */}
               {project.logline && (
                 <p
-                  className="font-light text-[14px]"
+                  className="font-light text-[16px]"
                   style={{
                     color: colors.text.primary,
                     lineHeight: typography.leading.relaxed,
@@ -437,7 +437,7 @@ export default async function ProjectPage({
               {/* @ts-ignore */}
               {project.shortParagraph && (
                 <p
-                  className="font-light text-[13px]"
+                  className="font-light text-[14px]"
                   style={{
                     color: colors.text.secondary,
                     lineHeight: typography.leading.loose,
